@@ -1,11 +1,13 @@
-import './assets/main.css'
+import { createApp } from "vue";
+import App from "./App.vue";
+import router from "./router";
+import Antd from "ant-design-vue";
+//import "ant-design-vue/dist/antd.css";
 
-import { createApp } from 'vue'
-import App from './App.vue'
-import router from './router'
+console.log("sss");
 
-const app = createApp(App)
+const app = createApp(App).use(Antd);
 
-app.use(router)
+app.use(router);
 
-app.mount('#app')
+app.mount("#app");

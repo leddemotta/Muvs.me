@@ -1,4 +1,30 @@
 <template>
+
+    aaaaaa
+
+    <div class="row justify-center">
+        <div class="col-12 col-md-2">
+          .col-12 .col-md-2
+        </div>
+        <div class="col-12 col-md-auto">
+          .col-12 .col-md-auto (Variable width content)
+        </div>
+        <div class="col-12 col-md-2">
+          .col-12 .col-md-2
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          .col
+        </div>
+        <div class="col-12 col-md-auto">
+          .col-12 .col-md-auto (Variable width content)
+        </div>
+        <div class="col">
+          .col
+        </div>
+      </div>
   <footer class="footer">
     <a-row type="flex" justify="space-between">
       <a-col> © Copyright 2022- Muvs.me - Todos os direitos reservados. </a-col>

@@ -1,0 +1,14 @@
+[
+  {
+    "label": "Bicicleta",
+    "value": "bicycle"
+  },
+  {
+    "label": "Patinete",
+    "value": "scooter"
+  },
+  {
+    "label": "Patins",
+    "value": "rollerblades"
+  }
+]
