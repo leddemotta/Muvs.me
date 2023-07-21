@@ -1,0 +1,335 @@
+$primary-color: #ff4228
+$white: #ffffff
+$black: #191919
+$gray: #292828
+$font: "Mulish", sans-serif
+$font: 'Poppins', sans-serif
+$green: #00aa21
+$red: #d54444
+$blue: #2196f3
+$orange: #f6b406
+
+@import url("https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap")
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap')
+
+// DEFAULTS
+
+html
+  scroll-behavior: smooth !important
+
+body
+  font-family: $font !important
+
+input, button, select, optgroup, textarea, p, div, span, font
+  font-family: $font !important
+
+a
+  color: $primary-color !important
+
+b, strong
+  font-weight: 700 !important
+
+.bolder
+  font-weight: 700 !important
+
+.page-pd
+  padding: 20px 30px
+
+h1
+  font-size: 28px
+  font-weight: 700 !important
+  letter-spacing: -1px
+  color: $gray !important
+h2
+  color: $gray !important
+
+  /* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button
+  -webkit-appearance: none
+  margin: 0
+
+/* Firefox */
+input[type=number]
+  -moz-appearance: textfield
+
+button[disabled]
+  filter: grayscale(1)
+
+input:-internal-autofill-selected
+  background-color: -internal-light-dark(rgb(174, 159, 141), rgba(126, 105, 70, 0.4)) !important
+  color: -internal-light-dark(black, white) !important
+
+// /* width */
+// ::-webkit-scrollbar
+//   width: 10px
+
+// /* Track */
+// ::-webkit-scrollbar-track
+//   background: #f1f1f1
+
+// /* Handle */
+// ::-webkit-scrollbar-thumb
+//   background:#bbb
+
+// /* Handle on hover */
+// ::-webkit-scrollbar-thumb:hover
+//   background: #aaa
+//   opacity: 0.8
+.container
+  margin: 0 auto
+  width: 1024px
+.dotted-phrase
+  white-space: nowrap
+  overflow: hidden
+  text-overflow: ellipsis
+
+.router-link-active.router-link-exact-active
+  opacity: 1 !important
+  filter: grayscale(0) !important
+
+.clearboth
+  clear: both
+
+.readonly
+  pointer-events: none
+  background: #f6f6f6 !important
+  input
+    background: #f6f6f6 !important
+
+.line-through
+  text-decoration: line-through
+
+.cprimary
+  color: $primary-color !important
+.cgreen
+  color: $green !important
+.cblue
+  color: $blue !important
+.corange
+  color: $orange !important
+.cblack
+  color: $black !important
+.red
+  color: $red !important
+.white
+  color: $white !important
+.cgray
+  color: #8d8d8d !important
+.cblack
+  color: #444 !important
+
+.grayscale
+  filter: gray
+  -webkit-filter: grayscale(1)
+  -webkit-filter: grayscale(100%)
+
+.none
+  display: none !important
+
+.w-box
+  background: $white
+  border-radius: 8px
+  padding: 15px !important
+
+.h3.title
+  font-size: 13px
+  text-transform: uppercase
+  margin-bottom: 15px
+  font-weight: 600
+  color: #be417
+
+.gradient
+  color: #ed6545 !important
+  background: -webkit-linear-gradient(#d93775, #ffb709)
+  -webkit-background-clip: text
+  -webkit-text-fill-color: transparent
+
+.btn-green
+  background: $green !important
+  border-color: $green !important
+
+.f10
+  font-size: 10px !important
+.f11
+  font-size: 11px !important
+.f12
+  font-size: 12px !important
+.f13
+  font-size: 13px !important
+.f14
+  font-size: 14px !important
+.f15
+  font-size: 15px !important
+.f16
+  font-size: 16px !important
+.f20
+  font-size: 20px !important
+
+.h-100
+  height: 100px
+.h-200
+  height: 200px !important
+
+.rad-6
+  border-radius: 6px
+  overflow: hidden
+
+.black-btn
+  background: #191919 !important
+  border-color: #191919 !important
+
+.w100
+  width: 100%
+
+.c-pointer
+  cursor: pointer
+
+.relative
+  position: relative
+
+.normal-font
+  text-transform: none !important
+  input
+    text-transform: none !important
+
+.upper
+  text-transform: uppercase
+  &::placeholder
+    text-transform: none
+  input
+    text-transform: uppercase
+    &::placeholder
+      text-transform: none
+
+.a-left
+  text-align: left
+
+.a-right
+  text-align: right
+
+.a-center
+  text-align: center !important
+
+.ml-5
+  margin-left: 5px !important
+.ml-10
+  margin-left: 10px !important
+.ml-15
+  margin-left: 15px !important
+.ml-20
+  margin-left: 20px !important
+
+.mr-5
+  margin-right: 5px !important
+.mr-10
+  margin-right: 10px !important
+.mr-20
+  margin-right: 20px !important
+
+.mt-0
+  margin-top: 0px !important
+.mt-5
+  margin-top: 5px !important
+.mt-10
+  margin-top: 10px !important
+.mt-20
+  margin-top: 20px !important
+.mt-30
+  margin-top: 30px !important
+.mt-40
+  margin-top: 40px !important
+.mt-50
+  margin-top: 50px !important
+.mt-60
+  margin-top: 60px !important
+.mt-70
+  margin-top: 70px !important
+.mt-80
+  margin-top: 80px !important
+.mt-90
+  margin-top: 90px !important
+.mt-100
+  margin-top: 100px !important
+
+.mb-0
+  margin-bottom: 0px !important
+.mb-10
+  margin-bottom: 10px !important
+.mb-20
+  margin-bottom: 20px !important
+.mb-30
+  margin-bottom: 30px !important
+.mb-40
+  margin-bottom: 40px !important
+.mb-50
+  margin-bottom: 50px !important
+.mb-60
+  margin-bottom: 60px !important
+.mb-70
+  margin-bottom: 70px !important
+.mb-80
+  margin-bottom: 80px !important
+.mb-90
+  margin-bottom: 90px !important
+.mb-100
+  margin-bottom: 100px !important
+
+.bt-0
+  border-top: 0 !important
+.bt-5
+  border-top: 5px !important
+.bt-10
+  border-top: 10px !important
+
+.bb-0
+  border-bottom: 0 !important
+.bb-5
+  border-bottom: 5px !important
+.bb-10
+  border-bottom: 10px !important
+
+.pl-0
+  padding-left: 0 !important
+.pl-5
+  padding-left: 5px !important
+.pl-10
+  padding-left: 10px !important
+.pl-15
+  padding-left: 15px !important
+.pl-20
+  padding-left: 20px !important
+
+.pt-0
+  padding-top: 0 !important
+.pt-5
+  padding-top: 5px !important
+.pt-10
+  padding-top: 10px !important
+
+.pb-0
+  padding-bottom: 0 !important
+.pb-5
+  padding-bottom: 5px !important
+.pb-10
+  padding-bottom: 10px !important
+
+/* CUSTOMS */
+
+.ant-form-explain
+  font-size: 12px !important
+  padding-top: 3px !important
+
+.ant-form-item-control
+  position: relative
+  line-height: 25px !important
+
+.ant-form-item
+  label
+    font-weight: 700
+    font-size: 11px !important
+
+
+.ant-input-lg 
+  font-size: 14px !important
