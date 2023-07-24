@@ -1,86 +1,101 @@
+<script setup>
+import { reactive, ref } from "vue";
+import { useUserStore } from "../../store/userStore";
+import AuthService from "@/services/AuthService";
+
+const userStore = useUserStore();
+const isLoading = ref(false);
+const formState = reactive({
+  email: "",
+  password: "",
+  remember: true,
+});
+
+const login = async (payload) => {
+  try {
+    isLoading.value = true;
+    //const payload = {};
+    const { data } = await AuthService.login(payload);
+    console.log(data);
+    localStorage.setItem("token", data.token);
+    localStorage.setItem("userId", data.userId);
+    localStorage.setItem("isLoggedIn", true);
+
+    userStore.setUser(data.userId);
+
+    //this.$store.state.isLoggedIn = true;
+    setTimeout(() => {
+      window.open("/", "_self");
+    }, 500);
+  } catch (error) {
+    console.log(error);
+  } finally {
+    isLoading.value = false;
+  }
+};
+
+const onFinish = (values) => {
+  console.log("Success:", values);
+  login(values);
+};
+
+const onFinishFailed = (errorInfo) => {
+  console.log("Failed:", errorInfo);
+};
+</script>
+
 <template>
   <div>
-    <a-form :form="form" @submit="handleSubmit">
+    <a-form
+      ref="formRef"
+      :model="formState"
+      @finish="onFinish"
+      @finishFailed="onFinishFailed"
+    >
       <h1 class="mb-30">
-        <router-link to="/" tag="span">
+        <RouterLink to="/">
           <img
             class="c-pointer"
-            src="../../assets/images/logo.png"
+            src="@/assets/images/logo.png"
             width="200"
             alt="muvsme"
           />
-        </router-link>
+        </RouterLink>
       </h1>
 
       <p class="mb-20">Insira seu e-mail e senha:</p>
 
-      <a-form-item>
+      <a-form-item
+        name="email"
+        :rules="[
+          {
+            required: true,
+            type: 'email',
+            message: 'Please input your email!',
+          },
+        ]"
+      >
         <a-input
-          size="large"
-          v-decorator="[
-            'email',
-            {
-              rules: [
-                {
-                  type: 'email',
-                  message: 'Escreva um e-mail válido.',
-                },
-                {
-                  required: true,
-                  message: 'Escreva seu e-mail no campo.',
-                },
-              ],
-            },
-          ]"
+          v-model:value="formState.email"
           placeholder="Insira seu e-mail"
-        >
-          <a-icon
-            slot="prefix"
-            type="mail"
-            style="color: rgba(0, 0, 0, 0.25)"
-          />
-        </a-input>
-      </a-form-item>
-
-      <a-form-item>
-        <a-input-password
           size="large"
-          v-decorator="[
-            'password',
-            {
-              rules: [
-                {
-                  required: true,
-                  message: 'Escreva sua senha.',
-                },
-              ],
-            },
-          ]"
-          type="password"
-          placeholder="Insira sua senha"
-        >
-          <a-icon
-            slot="prefix"
-            type="lock"
-            style="color: rgba(0, 0, 0, 0.25)"
-          />
-        </a-input-password>
+        />
       </a-form-item>
 
-      <a-form-item>
-        <a-checkbox
-          v-decorator="[
-            'remember',
-            {
-              valuePropName: 'checked',
-              initialValue: true,
-            },
-          ]"
-        >
-          Lembrar
-        </a-checkbox>
+      <a-form-item
+        name="password"
+        size="large"
+        :rules="[{ required: true, message: 'Please input your password!' }]"
+      >
+        <a-input-password
+          v-model:value="formState.password"
+          placeholder="Insira sua senha"
+        />
+      </a-form-item>
 
-        <a class="login-form-forgot" @click="forgotPassword()">
+      <a-form-item name="remember">
+        <a-checkbox v-model:checked="formState.remember"> Lembrar </a-checkbox>
+        <a class="login-form-forgot" @click="$router.push('/forgot-password')">
           Esqueceu sua senha?
         </a>
       </a-form-item>
@@ -91,73 +106,24 @@
           type="primary"
           size="large"
           html-type="submit"
-          :loading="loading"
+          :loading="isLoading"
+          >Acessar</a-button
         >
-          Acessar
-        </a-button>
       </a-form-item>
     </a-form>
 
-    <a-divider>Nova(o) por aqui?</a-divider>
+    <a-divider class="f12">Novo(a) por aqui?</a-divider>
 
     <a-button
       class="w100 mt-10 bolder"
       type="primary"
       size="large"
       ghost
-      @click="register()"
+      @click="$router.push('/choose-registration')"
     >
       Cadastre-se
     </a-button>
   </div>
 </template>
-
-<script>
-export default {
-  data() {
-    return {
-      form: this.$form.createForm(this),
-      loading: false,
-    };
-  },
-  methods: {
-    forgotPassword() {
-      this.$router.push(`/forgot-password`);
-    },
-    register() {
-      this.$router.push(`/choose-registration`);
-    },
-    handleSubmit(e) {
-      e.preventDefault();
-      this.loading = true;
-      this.form.validateFields((err, values) => {
-        if (!err) {
-          console.log("Received values of form: ", values);
-          this.$http
-            .post("/token", values)
-            .then(({ data }) => {
-              localStorage.setItem("token", data.token);
-              localStorage.setItem("userId", data.userId);
-              localStorage.setItem("isLoggedIn", true);
-
-              this.$store.state.isLoggedIn = true;
-              setTimeout(() => {
-                window.open("/", "_self");
-              }, 500);
-
-              this.loading = false;
-            })
-            .catch(({ response }) => {
-              this.$message.error(response.data.message);
-              this.loading = false;
-            });
-        } else {
-          this.loading = false;
-        }
-      });
-    },
-  },
-};
-</script>
 
 <style lang="sass" scoped></style>

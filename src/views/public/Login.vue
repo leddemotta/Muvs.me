@@ -6,14 +6,14 @@
         <a-col :span="7">
           <div class="box">
             <LoginForm
-              v-if="$route.meta.slug === 'login'"
+              v-if="$route.meta.page === 'login'"
               @loggedIn="loggedIn"
             />
-            <ForgotPasswordForm v-if="$route.meta.slug === 'forgot-password'" />
+            <ForgotPasswordForm v-if="$route.meta.page === 'forgot-password'" />
             <ChooseRegistration
-              v-if="$route.meta.slug === 'choose-registration'"
+              v-if="$route.meta.page === 'choose-registration'"
             />
-            <Registration v-if="$route.meta.slug === 'signin'" />
+            <Registration v-if="$route.meta.page === 'signin'" />
           </div>
         </a-col>
       </a-row>
@@ -51,6 +51,7 @@ export default {
   background-size: cover
   padding: 30px
   height: 100vh
+  box-sizing: border-box
   .bordered
     padding: 30px
     border-radius: 20px
@@ -58,6 +59,7 @@ export default {
     background: url(../../assets/images/muvsme-child.jpg) bottom center no-repeat
     background-size: cover
     height: 92vh
+    box-sizing: border-box
     .box
       text-align: center
       margin-top: 20px
@@ -65,4 +67,5 @@ export default {
       width: 100%
       padding: 40px
       border-radius: 20px
+      box-sizing: border-box
 </style>

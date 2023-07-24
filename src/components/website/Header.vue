@@ -7,7 +7,7 @@
             <img
               class="logo c-pointer"
               alt="muvsme"
-              src="../../assets/images/logo.png"
+              src="@/assets/images/logo.png"
               width="160"
           /></RouterLink>
         </a-col>

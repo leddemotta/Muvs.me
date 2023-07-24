@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Login from "../views/public/Login.vue";
+
 //import NotFound from '../views/public/NotFound.vue'
-import Home from "../views/Home.vue";
 import Messages from "@/components/system/pages/Messages.vue";
 import Profile from "@/components/system/pages/Profile.vue";
 import Notifications from "@/components/system/pages/Notifications.vue";
@@ -11,7 +11,14 @@ import MyVehicles from "@/components/system/pages/MyVehicles.vue";
 import VehiclePages from "@/components/vehicle/VehiclePages.vue";
 import MyRents from "@/components/system/pages/MyRents.vue";
 
-let company = "AAA";
+let company = "Muvs.Me";
+
+// const importPage = (view) => () => import(`@/components/dashboard/${view}.vue`);
+
+const systemViews = (view) => () => import(`../views/${view}.vue`);
+const systemPages = (view) => () => import(`@/components/${view}.vue`);
+
+systemPages;
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -19,7 +26,14 @@ const router = createRouter({
     {
       path: "/",
       name: "home",
-      component: Home,
+      component: systemViews("Home"),
+    },
+    {
+      path: "/login",
+      name: "login",
+      component: Login,
+      //component: systemViews("public/Login"),
+      meta: { title: `Login - ${company}`, page: "login", requiresAuth: true },
     },
     {
       path: "/contracts",
@@ -106,16 +120,7 @@ const router = createRouter({
       name: "notifications",
       component: Notifications,
     },
-    {
-      path: "/login",
-      name: "Login",
-      component: Login,
-      meta: {
-        title: `Login - ${company}`,
-        slug: "login",
-        page: "login",
-      },
-    },
+
     {
       path: "/forgot-password",
       name: "Login",

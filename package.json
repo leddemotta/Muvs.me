@@ -13,14 +13,18 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5.1.4",
+    "@ant-design/icons-vue": "^6.1.0",
     "ant-design-vue": "^4.0.0",
     "axios": "^1.4.0",
     "date-fns": "^2.30.0",
+    "http-status-codes": "^2.2.0",
+    "pinia": "^2.1.4",
     "replace-once": "^1.0.0",
     "sass": "^1.64.0",
     "vue": "^3.3.4",
+    "vue-axios": "^3.5.2",
     "vue-router": "^4.2.2",
-    "vuex": "^4.1.0"
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.2.3",
