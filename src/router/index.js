@@ -11,10 +11,7 @@ import MyVehicles from "@/components/system/pages/MyVehicles.vue";
 import VehiclePages from "@/components/vehicle/VehiclePages.vue";
 import MyRents from "@/components/system/pages/MyRents.vue";
 
-let company = "Muvs.Me";
-
-// const importPage = (view) => () => import(`@/components/dashboard/${view}.vue`);
-
+const company = "Muvs.Me";
 const systemViews = (view) => () => import(`../views/${view}.vue`);
 const systemPages = (view) => () => import(`@/components/${view}.vue`);
 
@@ -32,12 +29,62 @@ const router = createRouter({
       path: "/login",
       name: "login",
       component: Login,
-      //component: systemViews("public/Login"),
       meta: { title: `Login - ${company}`, page: "login", requiresAuth: true },
     },
     {
-      path: "/contracts",
-      redirect: "/contracts/list",
+      path: "/forgot-password",
+      name: "forgot-password",
+      component: Login,
+      meta: {
+        title: `Recuperar senha - ${company}`,
+        page: "login",
+      },
+    },
+    {
+      path: "/signin",
+      name: "signin",
+      component: Login,
+      meta: {
+        title: `Registrar-se - ${company}`,
+        page: "login",
+      },
+    },
+    {
+      path: "/choose-registration",
+      name: "choose-registration",
+      component: Login,
+      meta: {
+        title: `Registrar-se - ${company}`,
+        page: "login",
+        requiresAuth: true,
+      },
+    },
+    {
+      path: "/terms-and-conditions",
+      name: "terms-and-conditions",
+      component: Login,
+      meta: {
+        title: `Registrar-se - ${company}`,
+        page: "login",
+      },
+    },
+    {
+      path: "/security-tips",
+      name: "security-tips",
+      component: Login,
+      meta: {
+        title: `Registrar-se - ${company}`,
+        page: "login",
+      },
+    },
+    {
+      path: "/privacy",
+      name: "privacy",
+      component: Login,
+      meta: {
+        title: `Registrar-se - ${company}`,
+        page: "login",
+      },
     },
     {
       path: "/vehicle/:type/",
@@ -46,7 +93,7 @@ const router = createRouter({
       meta: {
         title: `Veículo - ${company}`,
         requiresAuth: true,
-        slug: "VehiclePages",
+        page: "VehiclePages",
       },
       children: [
         {
@@ -76,7 +123,7 @@ const router = createRouter({
       meta: {
         title: `Meus Aluguéis - ${company}`,
         requiresAuth: true,
-        slug: "MyRents",
+        page: "MyRents",
       },
       children: [
         {
@@ -121,36 +168,6 @@ const router = createRouter({
       component: Notifications,
     },
 
-    {
-      path: "/forgot-password",
-      name: "Login",
-      component: Login,
-      meta: {
-        title: `Recuperar senha - ${company}`,
-        slug: "forgot-password",
-        page: "login",
-      },
-    },
-    {
-      path: "/choose-registration",
-      name: "Login",
-      component: Login,
-      meta: {
-        title: `Registrar-se - ${company}`,
-        slug: "choose-registration",
-        page: "login",
-      },
-    },
-    {
-      path: "/signin",
-      name: "Login",
-      component: Login,
-      meta: {
-        title: `Registrar-se - ${company}`,
-        slug: "signin",
-        page: "login",
-      },
-    },
     // {
     //   path: "*",
     //   name: "NotFound",
@@ -159,14 +176,6 @@ const router = createRouter({
     //     title: `Página Não Encontrada - ${company}`,
     //   },
     // },
-    {
-      path: "/about",
-      name: "about",
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import("../views/Home.vue"),
-    },
   ],
 });
 

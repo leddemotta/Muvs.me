@@ -14,5 +14,5 @@ export default {
 .content
   background: #f4f4f4
   padding: 0px 0px 30px 110px
-  min-height: 684px;
+  min-height: 684px
 </style>

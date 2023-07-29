@@ -1,8 +1,10 @@
 <script setup>
 import { reactive, ref } from "vue";
 import { useUserStore } from "../../store/userStore";
+import { useRouter } from "vue-router";
 import AuthService from "@/services/AuthService";
 
+const router = useRouter();
 const userStore = useUserStore();
 const isLoading = ref(false);
 const formState = reactive({
@@ -14,19 +16,16 @@ const formState = reactive({
 const login = async (payload) => {
   try {
     isLoading.value = true;
-    //const payload = {};
     const { data } = await AuthService.login(payload);
-    console.log(data);
     localStorage.setItem("token", data.token);
     localStorage.setItem("userId", data.userId);
     localStorage.setItem("isLoggedIn", true);
+    userStore.setLoggedInUser(data.userId, data.token, true);
 
-    userStore.setUser(data.userId);
-
-    //this.$store.state.isLoggedIn = true;
-    setTimeout(() => {
-      window.open("/", "_self");
-    }, 500);
+    router.push("/");
+    // setTimeout(() => {
+    //   window.open("/", "_self");
+    // }, 500);
   } catch (error) {
     console.log(error);
   } finally {

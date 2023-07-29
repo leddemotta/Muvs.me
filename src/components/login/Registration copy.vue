@@ -1,39 +1,29 @@
 <script setup>
 import { reactive, ref, onMounted } from "vue";
 import Address from "../general/Address.vue";
-import AuthService from "@/services/AuthService";
 
-const formState = reactive({});
-
-const formRules = reactive({
-  firstName: [
-    {
-      required: true,
-      message: "Insira o seu nome",
-    },
-  ],
-  lastName: [
-    {
-      required: true,
-      message: "Insira o seu sobrenome",
-    },
-  ],
-  zipCode: [
-    {
-      required: true,
-      message: "Insira o seu CEP",
-    },
-  ],
-  email: [
-    {
-      required: true,
-      type: "email",
-      message: "Insira o seu e-mail",
-    },
-  ],
+let formState = reactive({
+  //   firstName: "",
+  //   lastName: "",
+  //   email:  "",
+  //   idCard: "",
+  //   birthday: "",
+  //   phone:  "",
+  //   gender:  "",
+  //   zipCode:  "",
+  //   password: "",
+  //   userPassword: "",
+  //   city:  "",
+  //   country: "",
+  //   neighborhood:  "",
+  //   complement:  "",
+  //   number:  "",
+  //   state:  "",
+  //   street:  "",
 });
 
 const isLoading = ref(false);
+
 const currentStep = ref(0);
 
 const steps = reactive([
@@ -65,108 +55,109 @@ const lastStep = () => {
 const validateFirstStep = () => {
   let flag = true;
 
-  if (
-    formState.firstName &&
-    formState.lastName &&
-    formState.email &&
-    formState.idCard &&
-    formState.birthday &&
-    formState.phone &&
-    formState.gender
-  )
-    flag = false;
+  //   if (
+  //     this.form.getFieldValue(`first_name`) &&
+  //     this.form.getFieldValue(`last_name`) &&
+  //     this.form.getFieldValue(`email`) &&
+  //     this.form.getFieldValue(`cpf`) &&
+  //     this.form.getFieldValue(`birthday`) &&
+  //     this.form.getFieldValue(`phone`) &&
+  //     this.form.getFieldValue(`gender`)
+  //   ) {
+  //     flag = false;
+  //     this.steps[0].status = "finish";
+  //   } else {
+  //     this.steps[0].status = "process";
+  //   }
 
   return flag;
 };
 
 const validateSecondStep = () => {
   let flag = true;
-
-  if (
-    formState.zipCode &&
-    formState.street &&
-    formState.number &&
-    formState.complement &&
-    formState.neighborhood &&
-    formState.city &&
-    formState.state &&
-    formState.country
-  )
-    flag = false;
+  //   if (
+  //     this.form.getFieldValue(`city`) &&
+  //     this.form.getFieldValue(`country`) &&
+  //     this.form.getFieldValue(`neighborhood`) &&
+  //     this.form.getFieldValue(`number`) &&
+  //     this.form.getFieldValue(`state`) &&
+  //     this.form.getFieldValue(`street`) &&
+  //     this.form.getFieldValue(`zip_code`)
+  //   ) {
+  //     flag = false;
+  //     this.steps[1].status = "finish";
+  //   } else {
+  //     this.steps[1].status = "process";
+  //   }
 
   return flag;
 };
 
 const validateLastStep = () => {
   let flag = true;
-
-  if (
-    formState.password &&
-    formState.userPassword &&
-    formState.password === formState.userPassword
-  )
-    flag = false;
+  // setTimeout(() => {
+  //   if (
+  //     this.form.getFieldValue(`password`) &&
+  //     this.form.getFieldValue(`userPassword`) &&
+  //     this.form.getFieldValue(`userPassword`) ===
+  //       this.form.getFieldValue(`password`)
+  //   ) {
+  //     flag = false;
+  //     this.steps[2].status = "finish";
+  //   } else {
+  //     this.steps[2].status = "process";
+  //   }
+  // }, 100);
 
   return flag;
 };
 
 const compareToFirstPassword = (rule, value, callback) => {
   console.log("compareToFirstPassword", value, "call", callback);
+  //   if (value && value !== this.form.getFieldValue("userPassword")) {
+  //     callback("As senhas digitadas não são iguais.");
+  //   } else {
+  //     callback();
+  //   }
 };
 
 onMounted(() => {
-
-  formState.firstName = "Ledilson";
-  formState.lastName = "Motta";
-  formState.email = "ledde.motta5@gmail.com";
-  formState.idCard = "091.642.466-98";
-  //formState.birthday = "2023-07-26T00:01:20.082Z";
-  formState.phone = "(31) 9 99139-5984";
-  formState.gender = "male";
-  formState.password = "Masculino";
-  formState.userPassword = "Masculino";
+  console.log("montado");
 });
 
-const register = async (payload) => {
-  try {
-    isLoading.value = true;
-    const { data } = await AuthService.register(payload);
-    console.log(data);
-    alert(data)
-    router.push("/login");
-  } catch (error) {
-    console.log(error);
-    alert(error.response.data.message)
-
-  } finally {
-    isLoading.value = false;
-  }
-};
-
-const onFinish = (values) => {
-  console.log("Success:", values, formState.firstName);
-  register(formState);
-};
-
-const onFinishFailed = (errorInfo) => {
-  console.log("Failed:", errorInfo);
-};
+//mounted() {
+// this.form.setFieldsValue({
+//     birthday: "1990-09-18",
+//     city: "Ouro Preto",
+//     complement: "Casa 2° andar",
+//     country: "Brasil",
+//     cpf: "091.642.466-98",
+//     email: "ledde.motta@gmail.com",
+//     first_name: "Ledilson",
+//     gender: "Masculino",
+//     last_name: "Motta",
+//     neighborhood: "Saramenha",
+//     number: "176",
+//     phone: "(31) 9 99139-5984",
+//     state: "MG",
+//     street: "Rua José Mendes",
+//     zip_code: "35400-000",
+// });
+//},
 </script>
 
 <template>
   <div>
     <a-form
       ref="formRef"
-      :rules="formRules"
       :model="formState"
       @finish="onFinish"
       @finishFailed="onFinishFailed"
     >
+      {{ formState }}
       <a-row>
         <a-col v-if="currentStep == 0" class="mb-20" :span="24">
-          <a @click="$router.go(-1)"
-            ><i class="icon icon-arrow-left2"></i> Voltar
-          </a>
+          <a @click="$router.go(-1)">Voltar </a>
         </a-col>
 
         <a-col :span="24">
@@ -179,16 +170,16 @@ const onFinishFailed = (errorInfo) => {
             <a-step
               v-for="(step, index) in steps"
               :key="index"
+              :status="step.status"
               :title="step.title"
-              :disabled="true"
             />
           </a-steps>
         </a-col>
       </a-row>
 
-      <a-row v-if="currentStep == 0" class="a-left mt-20" :gutter="20">
+      <a-row v-show="currentStep == 0" class="a-left mt-20" :gutter="20">
         <a-col :span="12">
-          <a-form-item name="firstName">
+          <a-form-item>
             <label>Nome</label>
             <a-input
               v-model:value="formState.firstName"
@@ -199,7 +190,7 @@ const onFinishFailed = (errorInfo) => {
         </a-col>
 
         <a-col :span="12">
-          <a-form-item name="lastName">
+          <a-form-item>
             <label>Sobrenome</label>
             <a-input v-model:value="formState.lastName" placeholder="Sobrenome">
             </a-input>
@@ -207,7 +198,15 @@ const onFinishFailed = (errorInfo) => {
         </a-col>
 
         <a-col :span="24">
-          <a-form-item name="email">
+          <a-form-item
+            :rules="[
+              {
+                required: true,
+                type: 'email',
+                message: 'Please input your email!',
+              },
+            ]"
+          >
             <label>E-mail</label>
             <a-input
               autoComplete="off"
@@ -219,7 +218,7 @@ const onFinishFailed = (errorInfo) => {
         </a-col>
 
         <a-col :span="12">
-          <a-form-item name="idCard">
+          <a-form-item>
             <label>CPF</label>
             <a-input
               v-mask="'###.###.###-##'"
@@ -231,7 +230,7 @@ const onFinishFailed = (errorInfo) => {
         </a-col>
 
         <a-col :span="12">
-          <a-form-item name="birthday">
+          <a-form-item>
             <label>Nascimento</label>
 
             <a-date-picker
@@ -246,7 +245,7 @@ const onFinishFailed = (errorInfo) => {
         </a-col>
 
         <a-col :span="12">
-          <a-form-item name="phone">
+          <a-form-item>
             <label>Celular</label>
             <a-input
               v-mask="'(##) # ####-####'"
@@ -258,7 +257,7 @@ const onFinishFailed = (errorInfo) => {
         </a-col>
 
         <a-col :span="12">
-          <a-form-item name="gender">
+          <a-form-item>
             <label>Sexo</label>
 
             <a-select
@@ -285,29 +284,26 @@ const onFinishFailed = (errorInfo) => {
             @click="secondStep"
             :disabled="validateFirstStep()"
           >
-            Próximo <i class="icon icon-arrow-right2"></i>
+            Próximo
           </a-button>
         </a-col>
       </a-row>
 
-      <a-row v-if="currentStep == 1" class="a-left mt-20" :gutter="20">
-        <a-col span="24">
-          <Address
-            v-if="formState"
-            :formState="formState"
-            :disabledCondition="false"
-            :fieldSizes="{
-              zipCode: 12,
-              street: 24,
-              number: 8,
-              complement: 16,
-              neighborhood: 12,
-              city: 12,
-              state: 12,
-              country: 12,
-            }"
-          />
-        </a-col>
+      <a-row v-show="currentStep == 1" class="a-left mt-20" :gutter="20">
+        <Address
+          :formState="formState"
+          :disabledCondition="false"
+          :fieldSizes="{
+            zip_code: 12,
+            street: 24,
+            number: 8,
+            complement: 16,
+            neighborhood: 12,
+            city: 12,
+            state: 12,
+            country: 12,
+          }"
+        />
 
         <a-col class="mt-10" span="6">
           <a-button
@@ -317,7 +313,6 @@ const onFinishFailed = (errorInfo) => {
             @click="currentStep = 0"
             ghost
           >
-            <i class="icon icon-arrow-left2"></i>
           </a-button>
         </a-col>
 
@@ -329,12 +324,12 @@ const onFinishFailed = (errorInfo) => {
             @click="lastStep"
             :disabled="validateSecondStep()"
           >
-            Próximo
+            Próximo <a-icon type="arrow-right" />
           </a-button>
         </a-col>
       </a-row>
 
-      <a-row v-if="currentStep == 2" class="a-left mt-20" :gutter="20">
+      <a-row v-show="currentStep == 2" class="a-left mt-20" :gutter="20">
         <a-col :span="24">
           <p>
             A senha deve conter no <b>mínimo 6 caracteres</b>, e também
@@ -342,10 +337,20 @@ const onFinishFailed = (errorInfo) => {
           </p>
         </a-col>
         <a-col :span="24">
-          <a-form-item name="userPassword">
+          <a-form-item>
             <label>Senha</label>
             <a-input-password
-              v-model:value="formState.userPassword"
+              v-decorator="[
+                'userPassword',
+                {
+                  rules: [
+                    {
+                      min: 6,
+                      message: 'A senha deve conter mais de 6 caracteres.',
+                    },
+                  ],
+                },
+              ]"
               type="password"
               placeholder="Insira a senha"
               @change="validateLastStep()"
@@ -354,10 +359,27 @@ const onFinishFailed = (errorInfo) => {
         ></a-col>
 
         <a-col :span="24">
-          <a-form-item name="password">
+          <a-form-item>
             <label>Repita a senha</label>
             <a-input-password
-              v-model:value="formState.password"
+              v-decorator="[
+                'password',
+                {
+                  rules: [
+                    {
+                      min: 6,
+                      message: 'A senha deve conter mais de 6 caracteres.',
+                    },
+                    {
+                      required: true,
+                      message: 'Repita a senha.',
+                    },
+                    {
+                      validator: compareToFirstPassword,
+                    },
+                  ],
+                },
+              ]"
               type="password"
               placeholder="Repita a senha"
               @change="validateLastStep()"
@@ -366,19 +388,7 @@ const onFinishFailed = (errorInfo) => {
           </a-form-item>
         </a-col>
 
-        <a-col class="mt-10" span="6">
-          <a-button
-            class="bolder w100"
-            type="primary"
-            size="large"
-            @click="currentStep = 1"
-            ghost
-          >
-            <i class="icon icon-arrow-left2"></i>
-          </a-button>
-        </a-col>
-
-        <a-col class="mt-10" span="18">
+        <a-col class="mt-10" :span="24">
           <a-button
             class="bolder w100"
             type="primary"

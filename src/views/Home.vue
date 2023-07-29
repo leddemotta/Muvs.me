@@ -1,22 +1,17 @@
-<template>
-    <div>
-        <div v-if="$store.state.isLoggedIn">
-            <HomeSystem />
-        </div>
-        <div v-if="!$store.state.isLoggedIn">
-            <Home />
-        </div>
-    </div>
-</template>
-
-<script>
+<script setup>
 import Home from "./public/Home.vue";
 import HomeSystem from "./private/Home.vue";
-
-export default {
-    components: { Home, HomeSystem },
-    methods: {},
-};
+import { useUserStore } from "../store/userStore";
+const userStore = useUserStore();
 </script>
 
-<style lang="sass"></style>
+<template>
+  <div>
+    <div v-if="userStore.isLoggedIn">
+      <HomeSystem />
+    </div>
+    <div v-if="!userStore.isLoggedIn">
+      <Home />
+    </div>
+  </div>
+</template>

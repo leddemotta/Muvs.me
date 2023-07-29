@@ -6,10 +6,11 @@
       <a-col>
         <ul>
           <li>
-            <RouterLink to="/terms">Termos e condições de uso</RouterLink>
+            <RouterLink to="/terms-and-conditions"
+              >Termos e condições de uso</RouterLink
+            >
           </li>
-          <li><RouterLink to="/code">Código de conduta</RouterLink></li>
-          <li><RouterLink to="/privacity">Privacidade</RouterLink></li>
+          <li><RouterLink to="/privacy">Privacidade</RouterLink></li>
           <li>
             <RouterLink to="/security-tips">Dicas de segurança</RouterLink>
           </li>

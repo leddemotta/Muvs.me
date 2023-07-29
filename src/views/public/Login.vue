@@ -1,19 +1,24 @@
+<script setup>
+import LoginForm from "@/components/login/LoginForm.vue";
+import ForgotPasswordForm from "@/components/login/ForgotPasswordForm.vue";
+import ChooseRegistration from "@/components/login/ChooseRegistration.vue";
+import Registration from "@/components/login/Registration.vue";
+
+const loggedIn = (boolean) => {
+  this.$emit("loggedIn", boolean);
+};
+</script>
+
 <template>
   <div class="login">
     <div class="bordered">
       <a-row>
-        <a-col :span="16"> . </a-col>
-        <a-col :span="7">
+        <a-col :offset="16" :span="7">
           <div class="box">
-            <LoginForm
-              v-if="$route.meta.page === 'login'"
-              @loggedIn="loggedIn"
-            />
-            <ForgotPasswordForm v-if="$route.meta.page === 'forgot-password'" />
-            <ChooseRegistration
-              v-if="$route.meta.page === 'choose-registration'"
-            />
-            <Registration v-if="$route.meta.page === 'signin'" />
+            <LoginForm v-if="$route.name === 'login'" @loggedIn="loggedIn" />
+            <ForgotPasswordForm v-if="$route.name === 'forgot-password'" />
+            <ChooseRegistration v-if="$route.name === 'choose-registration'" />
+            <Registration v-if="$route.name === 'signin'" />
           </div>
         </a-col>
       </a-row>
@@ -21,33 +26,9 @@
   </div>
 </template>
 
-<script>
-import LoginForm from "@/components/login/LoginForm.vue";
-import ForgotPasswordForm from "@/components/login/ForgotPasswordForm.vue";
-import ChooseRegistration from "@/components/login/ChooseRegistration.vue";
-import Registration from "@/components/login/Registration.vue";
-
-export default {
-  components: {
-    LoginForm,
-    ForgotPasswordForm,
-    ChooseRegistration,
-    Registration,
-  },
-  data() {
-    return {};
-  },
-  methods: {
-    loggedIn(boolean) {
-      this.$emit("loggedIn", boolean);
-    },
-  },
-};
-</script>
-
 <style lang="sass" scoped>
 .login
-  background: #fff url(../../assets/images/sgray.jpg) bottom center no-repeat
+  background: #fff url(@/assets/images/sgray.jpg) bottom center no-repeat
   background-size: cover
   padding: 30px
   height: 100vh

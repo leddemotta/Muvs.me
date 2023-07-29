@@ -23,10 +23,10 @@ export default {};
 
 <style lang="sass" scoped>
 .footer
-  padding: 30px 30px 20px 140px;
-  background: #fafafa;
+  padding: 30px 30px 20px 140px
+  background: #fafafa
   ul
-    list-style: none;
+    list-style: none
     li
       display: inline-block
       margin-left: 20px
