@@ -17,15 +17,8 @@ const login = async (payload) => {
   try {
     isLoading.value = true;
     const { data } = await AuthService.login(payload);
-    localStorage.setItem("token", data.token);
-    localStorage.setItem("userId", data.userId);
-    localStorage.setItem("isLoggedIn", true);
     userStore.setLoggedInUser(data.userId, data.token, true);
-
     router.push("/");
-    // setTimeout(() => {
-    //   window.open("/", "_self");
-    // }, 500);
   } catch (error) {
     console.log(error);
   } finally {

@@ -1,145 +1,94 @@
-<script>
-import homeImg from "@/assets/images/home.png";
-import messageImg from "@/assets/images/message.png";
-import settingsImg from "@/assets/images/settings.png";
-import searchImg from "@/assets/images/search.png";
+<script setup>
+import { onMounted, reactive, ref } from "vue";
+import { useUserStore } from "@/store/userStore";
+import AuthService from "@/services/AuthService";
+
+// imgs
 import userImg from "@/assets/images/user.png";
 import notificationImg from "@/assets/images/reminders.png";
-import rentImg from "@/assets/images/calendar.png";
+import settingsImg from "@/assets/images/settings.png";
+import messageImg from "@/assets/images/message.png";
 import bikeImg from "@/assets/images/bicycle.png";
 
-export default {
-  data() {
-    return {
-      menu: [
-        //  { name: "Buscar", ico: searchImg, class: "", route: "/search",   width: 33 },
-        {
-          name: "Notificações",
-          ico: notificationImg,
-          class: "",
-          route: "/notifications",
-          badge: true,
-          count: this.$root.notificationsCount,
-        },
-        {
-          name: "Meus veículos",
-          ico: bikeImg,
-          class: "",
-          route: "/my-vehicles",
-          width: 39,
-        },
-        // {
-        //     name: "Meus alugueis",
-        //     ico: rentImg,
-        //     class: "",
-        //     route: "/my-rents",
-        // },
-        {
-          name: "Mensagens",
-          ico: messageImg,
-          class: "",
-          route: "/messages",
-          badge: true,
-          count: 0,
-        },
-        // {
-        //     name: "Cadastrar ",
-        //     ico: bikeImg,
-        //     class: "create",
-        //     route: "/create-vehicle",
-        // },
-        { name: "Perfil", ico: userImg, class: "", route: "/profile" },
-        // {
-        //     name: "Configurações",
-        //     ico: settingsImg,
-        //     class: "",
-        //     route: "/settings",
-        // },
-      ],
-    };
-  },
-  // watch: {
-  //     menu: function (val) {
-  //         console.log("menu", val);
-  //         this.menu = val;
-  //     },
-  // },
+const userStore = useUserStore();
+const onClickOpenAdminMenu = ref(false);
 
-  // beforeRouteUpdate() {
-  //     this.getNotifications();
-  // },
-  // beforeMount() {
-  //     this.getNotifications();
-  // },
-  updated() {
-    this.menu.forEach((item, index) => {
-      if (item.name === "Notificações") {
-        this.menu[index].count = data.meta.total_unread;
-      }
-    });
-  },
-  methods: {
-    logOut() {
-      localStorage.removeItem("isLoggedIn");
-      localStorage.removeItem("token");
-      localStorage.removeItem("tokenExpiration");
-      localStorage.removeItem("userData");
-      localStorage.removeItem("loglevel:webpack-dev-server");
-      window.open("/login", "_self");
-    },
-    // getNotifications() {
-    //     this.$http
-    //         .get(
-    //             `/notification/list?page=1&per_page=100&is_read=0&user_id=${this.$store.state.userData.id}`
-    //         )
-    //         .then(({ data }) => {
-    //             // this.$root.notificationsCount = data.meta.total_unread;
-    //             this.menu.forEach((item, index) => {
-    //                 if (item.name === "Notificações") {
-    //                     //this.menu[index].count = data.meta.total_unread;
-    //                 }
-    //             });
-    //         })
-    //         .catch(({ response }) => {
-    //             response;
-    //             //this.$root.notificationsCount = 0;
-    //             // this.menu.forEach((item, index) => {
-    //             //     if (item.name === "Notificações") {
-    //             //         this.menu[index].count = 0;
-    //             //     }
-    //             // });
-    //         });
-    // },
-  },
+const details = async (payload) => {
+  try {
+    const { data } = await AuthService.details(payload);
+    userStore.setUser(JSON.stringify(data.user));
+  } catch (error) {
+    console.log(error);
+  }
 };
-</script>
-<template>
-  <div>
-    <header class="header">
-      <a-row type="flex" justify="space-between">
-        <a-col :span="24">
-          <router-link to="/">
-            <img
-              class="logo c-pointer"
-              alt="muvsme"
-              src="@/assets/images/logo-muvsme.png"
-              width="80"
-            />
-          </router-link>
-        </a-col>
 
-        <!-- {{ $root.notificationsCount }} -->
-        <!-- $route.name -->
-        <a-col :span="24">
-          <div class="nav">
-            <ul>
+const logOut = () => {
+  userStore.logout();
+  window.open("/login", "_self");
+};
+
+const itemAction = (item) => {
+  if (item.name === "Admin") onClickOpenAdminMenu.value = true;
+  if (item.name !== "Admin") onClickOpenAdminMenu.value = false;
+};
+
+onMounted(() => {
+  details(userStore.userId);
+});
+
+const menu = reactive([
+  {
+    name: "Notificações",
+    ico: notificationImg,
+    class: "",
+    route: "/notifications",
+    badge: true,
+    count: 5,
+  },
+  {
+    name: "Meus veículos",
+    ico: bikeImg,
+    class: "",
+    route: "/my-vehicles",
+    width: 39,
+  },
+  {
+    name: "Mensagens",
+    ico: messageImg,
+    class: "",
+    route: "/messages",
+    badge: true,
+    count: 0,
+  },
+  { name: "Perfil", ico: userImg, class: "", route: "/profile" },
+  { name: "Admin", ico: settingsImg, class: "", route: "" },
+]);
+</script>
+
+<template>
+  <header class="header">
+    <a-row class="actions" type="flex" justify="space-between">
+      <a-col :span="24">
+        <router-link to="/">
+          <img
+            class="logo c-pointer"
+            alt="muvsme"
+            src="@/assets/images/logo-muvsme.png"
+            width="80"
+          />
+        </router-link>
+      </a-col>
+
+      <a-col :span="24">
+        <div class="nav">
+          <ul>
+            <li v-for="(item, index) in menu" :key="index">
               <router-link
-                v-for="(item, index) in menu"
-                :key="index"
                 :class="`${item.class}${
                   $route.name == item.route ? ' active' : ''
                 }`"
                 :to="item.route"
+                @click="itemAction(item)"
               >
                 <a-tooltip placement="right">
                   <template #title>
@@ -162,56 +111,32 @@ export default {
                   </div>
                 </a-tooltip>
               </router-link>
-
-              <!--
-                            <li class="create">
-                                <a-tooltip placement="right">
-                                    <template slot="title">
-                                        <span>Cadastrar veículo</span>
-                                    </template>
-                                    <a-button
-                                        @click="$router.push(`/create-vehicle`)"
-                                        type="primary"
-                                        shape="circle"
-                                    >
-                                        <img
-                                            alt="muvsme"
-                                            src="@/assets/images/bike.png"
-                                        />
-                                    </a-button>
-                                </a-tooltip>
-                            </li> -->
-            </ul>
-          </div>
-        </a-col>
-        <a-col :span="24">
-          <a class="logout" @click="logOut()">
-            <a-tooltip placement="right">
-              <template #title>
-                <span>Sair</span>
-              </template>
-              <img alt="muvsme" src="@/assets/images/logout.png" width="30" />
-            </a-tooltip>
-          </a>
-        </a-col>
-      </a-row>
-    </header>
-
-    <!-- <a-tooltip placement="left">
-            <template slot="title">
-                <span>Cadastrar veículo</span>
+            </li>
+          </ul>
+        </div>
+      </a-col>
+      <a-col :span="24">
+        <a class="logout" @click="logOut()">
+          <a-tooltip placement="right">
+            <template #title>
+              <span>Sair</span>
             </template>
-            <a-button
-                class="add-btn"
-                @click="$router.push(`/vehicle/create`)"
-                type="primary"
-                shape="circle"
-            >
-                <img alt="muvsme" src="@/assets/images/bike.png" />
-                <span class="plus">+</span>
-            </a-button>
-        </a-tooltip> -->
-  </div>
+            <img alt="muvsme" src="@/assets/images/logout.png" width="30" />
+          </a-tooltip>
+        </a>
+      </a-col>
+    </a-row>
+  </header>
+
+  <a-drawer
+    class="admin-header"
+    placement="left"
+    :closable="false"
+    :open="onClickOpenAdminMenu"
+    @close="onClickOpenAdminMenu = false"
+  >
+    <template #title> Admin Area </template>
+  </a-drawer>
 </template>
 
 <style lang="sass" scoped>
@@ -238,14 +163,16 @@ export default {
   img
     width: 50px
 .header
-  padding: 30px 14px !important
+  padding: 30px 14px 40px
   position: fixed
   height: 100%
-  width: 110px
-  background: #FFF
+  width: 80px
+  background: #fff
   text-align: center
-  box-shadow: 0 0 10px 0 rgba(0,0,0, 0.05)
+  box-shadow: 0 0 10px 0 rgba(0,0,0,.05)
   z-index: 10
+  .actions
+    height: 95vh
   .logout
     filter: grayscale(1)
     opacity: 0.4
@@ -283,6 +210,4 @@ export default {
         &:hover
           filter: grayscale(1)
           opacity: 1
-        img
-          //width: 30px
 </style>

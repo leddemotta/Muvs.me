@@ -10,6 +10,7 @@ import SystemContent from "@/components/system/Content.vue";
 import SystemFooter from "@/components/system/Footer.vue";
 
 const userStore = useUserStore();
+userStore.checkLocalStorage(); // Check if the user is logged in
 </script>
 
 <template>
@@ -24,8 +25,6 @@ const userStore = useUserStore();
     >
       <section class="logged-in" v-if="userStore.isLoggedIn">
         <SystemHeader />
-        {{ userStore }}
-        <h2 v-if="userStore.isLoggedIn">Bem-vindo, {{ userStore.userId }}</h2>
         <SystemContent />
         <SystemFooter />
       </section>
@@ -39,11 +38,10 @@ const userStore = useUserStore();
   </div>
 </template>
 
-
 <style lang="sass">
 @import 'assets/sass/style.sass'
 </style>
 
 <style lang="css">
-@import 'assets/fonts/icomoon/style.css'
+@import "assets/fonts/icomoon/style.css";
 </style>

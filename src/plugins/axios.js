@@ -35,7 +35,7 @@ const AxiosPlugin = {
 
     // Add a request interceptor
     axiosInstance.interceptors.request.use((config) => {
-      const token = "YOUR_ACCESS_TOKEN"; // Replace this with your actual token or get it from a storage like Vuex or localStorage
+      const token = localStorage.getItem("token"); // Replace this with your actual token or get it from a storage like Vuex or localStorage
       if (token) {
         config.headers["Authorization"] = `Bearer ${token}`;
       }

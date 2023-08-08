@@ -6,9 +6,10 @@ import { reactive, ref, onMounted } from "vue";
 import axios from "axios";
 
 const props = defineProps({
-  formState: Object,
   fieldSizes: Object,
   disabledCondition: Boolean,
+  address: Object,
+  index: Number,
 });
 
 const states = reactive([
@@ -60,14 +61,14 @@ const getLocation = () => {
 };
 
 onMounted(() => {
-  // props.formState.address.zipCode = "35400000";
-  // props.formState.address.street = "Rua José Mendes";
-  // props.formState.address.number = "176";
-  // props.formState.address.complement = "Casa 2° andar";
-  // props.formState.address.neighborhood = "Saramenha";
-  // props.formState.address.city = "Ouro Preto";
-  // props.formState.address.state = "Minas Gerais";
-  // props.formState.address.country = "Brasil";
+  props.address.zipCode = "35400000";
+  props.address.street = "Rua José Mendes";
+  props.address.number = "176";
+  props.address.complement = "Casa 2° andar";
+  props.address.neighborhood = "Saramenha";
+  props.address.city = "Ouro Preto";
+  props.address.state = "Minas Gerais";
+  props.address.country = "Brasil";
 });
 </script>
 
@@ -75,89 +76,131 @@ onMounted(() => {
   <span>
     <a-row :gutter="20">
       <a-col :span="fieldSizes.zipCode">
-        <a-form-item name="zipCode">
+        <a-form-item
+          :name="['address', props.index, 'zipCode']"
+          :rules="{
+            required: true,
+            message: 'Insira o seu CEP',
+          }"
+        >
           <label> CEP </label>
           <a-input
             placeholder="CEP"
             v-mask="'#####-###'"
             :disabled="disabledCondition"
             @blur="getLocation"
-            v-model:value="formState.address.zipCode"
+            v-model:value="address.zipCode"
           >
           </a-input>
         </a-form-item>
       </a-col>
 
       <a-col :span="fieldSizes.street">
-        <a-form-item name="street">
+        <a-form-item
+          :name="['address', props.index, 'street']"
+          :rules="{
+            required: true,
+            message: 'Insira o seu CEP',
+          }"
+        >
           <label> Logradouro </label>
           <a-input
             :disabled="disabledCondition"
             placeholder="Logradouro"
-            v-model:value="formState.address.street"
+            v-model:value="address.street"
           >
           </a-input>
         </a-form-item>
       </a-col>
 
       <a-col :span="fieldSizes.number">
-        <a-form-item name="number">
+        <a-form-item
+          :name="['address', props.index, 'number']"
+          :rules="{
+            required: true,
+            message: 'Insira o seu CEP',
+          }"
+        >
           <label> Número </label>
           <a-input
             type="number"
             :disabled="disabledCondition"
             placeholder="Número"
-            v-model:value="formState.address.number"
+            v-model:value="address.number"
           >
           </a-input>
         </a-form-item>
       </a-col>
 
       <a-col :span="fieldSizes.complement">
-        <a-form-item name="complement">
+        <a-form-item
+          :name="['address', props.index, 'complement']"
+          :rules="{
+            required: true,
+            message: 'Insira o seu CEP',
+          }"
+        >
           <label> Complemento </label>
           <a-input
             placeholder="Complemento"
             :disabled="disabledCondition"
-            v-model:value="formState.address.complement"
+            v-model:value="address.complement"
           >
           </a-input>
         </a-form-item>
       </a-col>
 
       <a-col :span="fieldSizes.neighborhood">
-        <a-form-item name="neighborhood">
+        <a-form-item
+          :name="['address', props.index, 'neighborhood']"
+          :rules="{
+            required: true,
+            message: 'Insira o seu CEP',
+          }"
+        >
           <label> Bairro </label>
           <a-input
             placeholder="Bairro"
             :disabled="disabledCondition"
-            v-model:value="formState.address.neighborhood"
+            v-model:value="address.neighborhood"
           >
           </a-input>
         </a-form-item>
       </a-col>
 
       <a-col :span="fieldSizes.city">
-        <a-form-item name="city">
+        <a-form-item
+          :name="['address', props.index, 'city']"
+          :rules="{
+            required: true,
+            message: 'Insira o seu CEP',
+          }"
+        >
           <label> Cidade </label>
           <a-input
             placeholder="Cidade"
             :disabled="disabledCondition"
-            v-model:value="formState.address.city"
+            v-model:value="address.city"
           >
           </a-input>
         </a-form-item>
       </a-col>
 
       <a-col :span="fieldSizes.state">
-        <a-form-item name="state">
+        <a-form-item
+          :name="['address', props.index, 'state']"
+          :rules="{
+            required: true,
+            message: 'Insira o seu CEP',
+          }"
+        >
           <label> Estado </label>
           <a-select
             show-search
             :disabled="disabledCondition"
             placeholder="ES"
             allowClear
-            v-model:value="formState.address.state"
+            v-model:value="address.state"
           >
             <a-select-option
               v-for="(item, index) of states"
@@ -170,8 +213,14 @@ onMounted(() => {
         </a-form-item>
       </a-col>
 
-      <a-col :span="fieldSizes.country">
-        <a-form-item name="country">
+      <a-col :span="address.country">
+        <a-form-item
+          :name="['address', props.index, 'country']"
+          :rules="{
+            required: true,
+            message: 'Insira o seu CEP',
+          }"
+        >
           <label> País </label>
           <a-select
             show-search
@@ -179,7 +228,7 @@ onMounted(() => {
             placeholder="País"
             optionFilterProp="txt"
             allowClear
-            v-model:value="formState.address.country"
+            v-model:value="address.country"
           >
             <a-select-option
               v-for="(item, index) of countries"

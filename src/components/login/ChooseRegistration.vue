@@ -1,8 +1,10 @@
-<script setup></script>
+<script setup>
+import { ArrowLeftOutlined } from "@ant-design/icons-vue";
+</script>
 
 <template>
   <div>
-    <a @click="$router.go(-1)">  Voltar </a>
+    <a @click="$router.go(-1)"> <ArrowLeftOutlined /> Voltar </a>
 
     <h1 class="mt-20 mb-30">
       <img src="@/assets/images/logo.png" width="200" alt="muvsme" />

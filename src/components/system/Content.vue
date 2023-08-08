@@ -1,14 +1,13 @@
-<template>
-    <div class="content">
-        <RouterView />
-    </div>
-</template>
-
-<script>
-export default {
-    methods: {},
-};
+<script setup>
+import { useUserStore } from "@/store/userStore";
+const userStore = useUserStore();
 </script>
+
+<template>
+  <div class="content">
+   Olá {{ userStore.user.firstName }}!
+  </div>
+</template>
 
 <style lang="sass" scoped>
 .content

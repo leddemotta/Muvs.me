@@ -15,7 +15,7 @@ const ApiClientService = axios.create({
 
 ApiClientService.interceptors.request.use((config) => {
   const user = JSON.parse(localStorage.getItem("user"));
-  if (user) config.headers.authorization = user.acessToken;
+  if (user) config.headers.authorization = localStorage.getItem("token"); //user.accessToken;
   return config;
 });
 
