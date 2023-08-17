@@ -18,7 +18,7 @@ const details = async (payload) => {
     const { data } = await AuthService.details(payload);
     userStore.setUser(JSON.stringify(data.user));
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
   }
 };
 
@@ -33,7 +33,10 @@ const itemAction = (item) => {
 };
 
 onMounted(() => {
-  details(userStore.userId);
+  setTimeout(() => {
+    details(userStore.userId);
+    userStore.checkSessionStorage();
+  }, 500);
 });
 
 const menu = reactive([
@@ -44,6 +47,7 @@ const menu = reactive([
     route: "/notifications",
     badge: true,
     count: 5,
+    show: true,
   },
   {
     name: "Meus veículos",
@@ -51,6 +55,7 @@ const menu = reactive([
     class: "",
     route: "/my-vehicles",
     width: 39,
+    show: true,
   },
   {
     name: "Mensagens",
@@ -59,9 +64,33 @@ const menu = reactive([
     route: "/messages",
     badge: true,
     count: 0,
+    show: true,
   },
-  { name: "Perfil", ico: userImg, class: "", route: "/profile" },
-  { name: "Admin", ico: settingsImg, class: "", route: "" },
+  { name: "Perfil", ico: userImg, class: "", route: "/profile", show: true },
+  {
+    name: "Admin",
+    ico: settingsImg,
+    class: "",
+    route: "",
+    show: userStore.user.role === "admin" ? true : false,
+  },
+]);
+
+const adminMenu = reactive([
+  {
+    name: "Usuários",
+    ico: "",
+    class: "",
+    route: "/users",
+    show: true,
+  },
+  {
+    name: "Veículos",
+    ico: "",
+    class: "",
+    route: "/vehicles",
+    show: true,
+  },
 ]);
 </script>
 
@@ -84,6 +113,7 @@ const menu = reactive([
           <ul>
             <li v-for="(item, index) in menu" :key="index">
               <router-link
+                v-if="item.show"
                 :class="`${item.class}${
                   $route.name == item.route ? ' active' : ''
                 }`"
@@ -129,17 +159,34 @@ const menu = reactive([
   </header>
 
   <a-drawer
-    class="admin-header"
+    class="admin-menu"
     placement="left"
     :closable="false"
     :open="onClickOpenAdminMenu"
     @close="onClickOpenAdminMenu = false"
   >
     <template #title> Admin Area </template>
+
+    <a-list size="small" :bordered="false" :data-source="adminMenu">
+      <template #renderItem="{ item }">
+        <a-list-item
+          ><router-link :to="item.route">{{
+            item.name
+          }}</router-link></a-list-item
+        >
+      </template>
+    </a-list>
   </a-drawer>
 </template>
 
+<style lang="sass">
+.admin-menu
+  .ant-drawer-body
+    padding: 0 !important
+</style>
+
 <style lang="sass" scoped>
+
 .add-btn
   position: fixed !important
   right: 25px !important

@@ -10,7 +10,7 @@ import SystemContent from "@/components/system/Content.vue";
 import SystemFooter from "@/components/system/Footer.vue";
 
 const userStore = useUserStore();
-userStore.checkLocalStorage(); // Check if the user is logged in
+userStore.checkSessionStorage();
 </script>
 
 <template>

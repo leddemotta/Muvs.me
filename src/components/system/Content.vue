@@ -1,11 +1,12 @@
 <script setup>
-import { useUserStore } from "@/store/userStore";
-const userStore = useUserStore();
+// import { useUserStore } from "@/store/userStore";
+// const userStore = useUserStore();
+// Olá {{ userStore.user.firstName }}!
 </script>
 
 <template>
   <div class="content">
-   Olá {{ userStore.user.firstName }}!
+    <RouterView />
   </div>
 </template>
 

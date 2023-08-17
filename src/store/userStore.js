@@ -41,7 +41,7 @@ export const useUserStore = defineStore({
     clearUser() {
       this.user = null;
     },
-    checkLocalStorage() {
+    checkSessionStorage() {
       // Check if the user is logged in (e.g., during app initialization)
       const user = sessionStorage.getItem("user");
       if (user) {

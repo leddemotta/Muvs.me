@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Login from "../views/public/Login.vue";
 
-//import NotFound from '../views/public/NotFound.vue'
+import NotFound from "../views/public/NotFound.vue";
 import Messages from "@/components/system/pages/Messages.vue";
 import Profile from "@/components/system/pages/Profile.vue";
 import Notifications from "@/components/system/pages/Notifications.vue";
@@ -10,6 +10,7 @@ import Settings from "@/components/system/pages/Settings.vue";
 import MyVehicles from "@/components/system/pages/MyVehicles.vue";
 import VehiclePages from "@/components/vehicle/VehiclePages.vue";
 import MyRents from "@/components/system/pages/MyRents.vue";
+import UsersList from "@/components/user/pages/UsersList.vue";
 
 const company = "Muvs.Me";
 const systemViews = (view) => () => import(`../views/${view}.vue`);
@@ -28,7 +29,7 @@ const router = createRouter({
     {
       path: "/login",
       name: "login",
-      component: Login,
+      component: () => import("../views/public/Login.vue"),
       meta: { title: `Login - ${company}`, page: "login", requiresAuth: true },
     },
     {
@@ -60,6 +61,16 @@ const router = createRouter({
       },
     },
     {
+      path: "/users",
+      name: "users",
+      component: UsersList,
+      meta: {
+        title: `Usuários - ${company}`,
+        page: "users",
+        requiresAuth: true,
+      },
+    },
+    {
       path: "/terms-and-conditions",
       name: "terms-and-conditions",
       component: Login,
@@ -86,96 +97,95 @@ const router = createRouter({
         page: "login",
       },
     },
-    {
-      path: "/vehicle/:type/",
-      name: "RegisterVehicle",
-      component: VehiclePages,
-      meta: {
-        title: `Veículo - ${company}`,
-        requiresAuth: true,
-        page: "VehiclePages",
-      },
-      children: [
-        {
-          path: ":id",
-          component: VehiclePages,
-          meta: {
-            title: `Veículo - ${company}`,
-            requiresAuth: true,
-          },
-          children: [
-            {
-              path: ":slug",
-              component: VehiclePages,
-              meta: {
-                title: `Veículo - ${company}`,
-                requiresAuth: true,
-              },
-            },
-          ],
-        },
-      ],
-    },
-    {
-      path: "/my-rents/:action",
-      name: "MyRents",
-      component: MyRents,
-      meta: {
-        title: `Meus Aluguéis - ${company}`,
-        requiresAuth: true,
-        page: "MyRents",
-      },
-      children: [
-        {
-          path: ":id",
-          component: MyRents,
-          meta: {
-            title: `Veículo - ${company}`,
-            requiresAuth: true,
-          },
-        },
-      ],
-    },
-    {
-      path: "/my-rents",
-      name: "my-rents",
-      component: MyRents,
-    },
-
-    {
-      path: "/my-vehicles",
-      name: "my-vehicles",
-      component: MyVehicles,
-    },
-    {
-      path: "/messages",
-      name: "messages",
-      component: Messages,
-    },
-    {
-      path: "/settings",
-      name: "settings",
-      component: Settings,
-    },
-    {
-      path: "/profile",
-      name: "profile",
-      component: Profile,
-    },
-    {
-      path: "/notifications",
-      name: "notifications",
-      component: Notifications,
-    },
+    // {
+    //   path: "/vehicle/:type/",
+    //   name: "RegisterVehicle",
+    //   component: VehiclePages,
+    //   meta: {
+    //     title: `Veículo - ${company}`,
+    //     requiresAuth: true,
+    //     page: "VehiclePages",
+    //   },
+    //   children: [
+    //     {
+    //       path: ":id",
+    //       component: VehiclePages,
+    //       meta: {
+    //         title: `Veículo - ${company}`,
+    //         requiresAuth: true,
+    //       },
+    //       children: [
+    //         {
+    //           path: ":slug",
+    //           component: VehiclePages,
+    //           meta: {
+    //             title: `Veículo - ${company}`,
+    //             requiresAuth: true,
+    //           },
+    //         },
+    //       ],
+    //     },
+    //   ],
+    // },
+    // {
+    //   path: "/my-rents/:action",
+    //   name: "MyRents",
+    //   component: MyRents,
+    //   meta: {
+    //     title: `Meus Aluguéis - ${company}`,
+    //     requiresAuth: true,
+    //     page: "MyRents",
+    //   },
+    //   children: [
+    //     {
+    //       path: ":id",
+    //       component: MyRents,
+    //       meta: {
+    //         title: `Veículo - ${company}`,
+    //         requiresAuth: true,
+    //       },
+    //     },
+    //   ],
+    // },
+    // {
+    //   path: "/my-rents",
+    //   name: "my-rents",
+    //   component: MyRents,
+    // },
 
     // {
-    //   path: "*",
-    //   name: "NotFound",
-    //   component: NotFound,
-    //   meta: {
-    //     title: `Página Não Encontrada - ${company}`,
-    //   },
+    //   path: "/my-vehicles",
+    //   name: "my-vehicles",
+    //   component: MyVehicles,
     // },
+    // {
+    //   path: "/messages",
+    //   name: "messages",
+    //   component: Messages,
+    // },
+    // {
+    //   path: "/settings",
+    //   name: "settings",
+    //   component: Settings,
+    // },
+    // {
+    //   path: "/profile",
+    //   name: "profile",
+    //   component: Profile,
+    // },
+    // {
+    //   path: "/notifications",
+    //   name: "notifications",
+    //   component: Notifications,
+    // },
+    {
+      path: "/:pathMatch(.*)*",
+      name: "NotFound",
+      component: NotFound,
+      meta: {
+        title: `Página Não Encontrada - ${company}`,
+      },
+    },
   ],
 });
 

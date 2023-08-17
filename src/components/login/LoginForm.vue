@@ -3,6 +3,7 @@ import { reactive, ref } from "vue";
 import { useUserStore } from "../../store/userStore";
 import { useRouter } from "vue-router";
 import AuthService from "@/services/AuthService";
+import { message } from "ant-design-vue";
 
 const router = useRouter();
 const userStore = useUserStore();
@@ -21,6 +22,7 @@ const login = async (payload) => {
     router.push("/");
   } catch (error) {
     console.log(error);
+  //  message.error(error.response.data.message);
   } finally {
     isLoading.value = false;
   }

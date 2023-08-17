@@ -7,6 +7,9 @@ const AuthService = {
   register(payload) {
     return ApiClientService.post(`/users/register`, payload);
   },
+  list(payload) {
+    return ApiClientService.get(`/users${payload}`);
+  },
   details(payload) {
     return ApiClientService.get(`/users/${payload}`);
   },

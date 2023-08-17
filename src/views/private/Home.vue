@@ -1,20 +1,14 @@
 <template>
   <div>
-      <div class="banner">
+    HOME LOGGED
+    <!-- <div class="banner">
           <diV class="container">
               <div class="search-wrapper"><Search /></div>
           </diV>
       </div>
 
       <diV class="container">
-          <!-- <a-row>
-              <a-col :span="24">
-                  <h1>
-                      Bem vindo {{ $store.state.userData.first_name }}!
-                  </h1></a-col
-              >
-              <a-col :span="24">  </a-col>
-          </a-row> -->
+
           <a-row :gutter="[20, 20]">
               <a-col
                   v-for="(vehicle, index) in vehicle.list"
@@ -24,25 +18,25 @@
                   <VehicleBox :vehicle="vehicle" />
               </a-col>
           </a-row>
-      </diV>
+      </diV> -->
   </div>
 </template>
 
 <script>
-import VehicleBox from "@/components/vehicle/list/VehicleBox.vue";
-import vehicleMixins from "@/mixins/vehicle/mixin.js";
-import Search from "@/components/general/Search.vue";
+// import VehicleBox from "@/components/vehicle/list/VehicleBox.vue";
+// import vehicleMixins from "@/mixins/vehicle/mixin.js";
+// import Search from "@/components/general/Search.vue";
 
-export default {
-  mixins: [vehicleMixins],
-  components: { VehicleBox, Search },
-  data() {
-      return {};
-  },
-  beforeMount() {
-      this.getVehicles();
-  },
-};
+// export default {
+//   mixins: [vehicleMixins],
+//   components: { VehicleBox, Search },
+//   data() {
+//     return {};
+//   },
+//   beforeMount() {
+//     this.getVehicles();
+//   },
+// };
 </script>
 
 <style lang="sass" scoped>
