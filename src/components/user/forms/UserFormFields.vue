@@ -3,13 +3,14 @@ import { reactive, ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { message } from "ant-design-vue";
 
-import Address from "@/components/general/Address.vue";
+import AddressList from "@/components/user/address/AddressList.vue";
 import AuthService from "@/services/AuthService";
 
 const router = useRouter();
 
 const props = defineProps({
   user: Object,
+  addresses: Array,
 });
 
 const formState = reactive({
@@ -56,7 +57,7 @@ onMounted(() => {
   formState.lastName = props.user.lastName;
   formState.email = props.user.email;
   formState.idCard = props.user.idCard;
-  formState.birthday = props.user.birthday;
+  //formState.birthday = // "2023-08-29"; //props.user.birthday ? props.user.birthday.split();
   formState.phone = props.user.phone;
   formState.gender = props.user.gender;
 });
@@ -81,6 +82,10 @@ const onFinish = (values) => {
   register(formState);
 };
 
+const onChangeTab = (tab) => {
+  activeKey.value = tab;
+};
+
 const onFinishFailed = (errorInfo) => {
   //message.error(errorInfo);
   console.log("Failed:", errorInfo);
@@ -96,8 +101,7 @@ const onFinishFailed = (errorInfo) => {
       @finish="onFinish"
       @finishFailed="onFinishFailed"
     >
-      {{ activeKey }}
-      <a-tabs :activeKey="activeKey">
+      <a-tabs @change="onChangeTab" :activeKey="activeKey">
         <a-tab-pane key="data" tab="Dados">
           <a-row :gutter="20">
             <a-col :span="12">
@@ -154,7 +158,6 @@ const onFinishFailed = (errorInfo) => {
                   <a-date-picker
                     placeholder="__/__/____"
                     format="DD/MM/YYYY"
-                    v-mask="'##/##/####'"
                     :showToday="false"
                     v-model:value="formState.birthday"
                   >
@@ -227,40 +230,24 @@ const onFinishFailed = (errorInfo) => {
               </a-form-item>
             </a-col>
           </a-row>
+
+          <div class="a-center ">
+            <a-divider class="nt-0" />
+            <a-button
+              class="bolder"
+              type="primary"
+
+              html-type="submit"
+              :loading="isLoading"
+            >
+              Atualizar
+            </a-button>
+          </div>
         </a-tab-pane>
         <a-tab-pane key="address" tab="Endereços">
-          <a-row class="a-left mt-20" :gutter="20">
-            <a-col v-if="formState" span="24">
-              <!-- <Address
-                :formState="formState"
-                :disabledCondition="false"
-                :fieldSizes="{
-                  zipCode: 12,
-                  street: 24,
-                  number: 8,
-                  complement: 16,
-                  neighborhood: 12,
-                  city: 12,
-                  state: 12,
-                  country: 12,
-                }"
-              /> -->
-            </a-col>
-          </a-row>
+          <AddressList :userId="props.user._id" />
         </a-tab-pane>
       </a-tabs>
-      <div class="a-center mt-10">
-        <a-divider />
-        <a-button
-          class="bolder"
-          type="primary"
-          size="large"
-          html-type="submit"
-          :loading="isLoading"
-        >
-          Atualizar
-        </a-button>
-      </div>
     </a-form>
   </div>
 </template>

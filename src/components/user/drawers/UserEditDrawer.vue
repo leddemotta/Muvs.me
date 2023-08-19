@@ -27,6 +27,6 @@ onMounted(() => {
 
 <template>
   <div>
-    <UserFormFields v-if="theUser.user !== undefined" :user="theUser.user" />
+    <UserFormFields v-if="theUser.user !== undefined" :user="theUser.user" :addresses="theUser.addresses"   />
   </div>
 </template>
