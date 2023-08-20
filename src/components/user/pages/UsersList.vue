@@ -1,107 +1,43 @@
 <script setup>
 import { ref, reactive, onMounted } from "vue";
-import { EditOutlined, UserOutlined } from "@ant-design/icons-vue";
+import { message } from "ant-design-vue";
+import {
+  EditOutlined,
+  UserOutlined,
+  DeleteOutlined,
+} from "@ant-design/icons-vue";
+
+import userReusables from "../reusables/userReusables";
+
+const { onClickDeleteUser, onChangePagination, listUsers, users, columns } =
+  userReusables;
 
 import UserEditDrawer from "@/components/user/drawers/UserEditDrawer.vue";
-import PageHeader from "../../general/PageHeader.vue";
-import AuthService from "@/services/AuthService";
+import PageHeader from "@/components/general/PageHeader.vue";
+import CreateUserForm from "@/components/user/forms/CreateUserForm.vue";
 
-const list = async (payload) => {
-  try {
-    const response = await AuthService.list(payload);
-    users.pagination.total = response.data.pagination.total;
-    return response.data.users;
-  } catch (error) {
-    return [];
-    //console.log(error);
-  }
-};
-
-const openUserDrawer = ref(false);
+const openEditUserDrawer = ref(false);
+const openCreateUserDrawer = ref(false);
 const userId = ref(0);
 
-const columns = reactive([
-  {
-    title: "ID",
-    dataIndex: "_id",
-    key: "_id",
-  },
-  {
-    title: "Nome",
-    dataIndex: "firstName",
-    key: "firstName",
-  },
-  {
-    title: "Sobrenome",
-    dataIndex: "lastName",
-    key: "lastName",
-  },
-  {
-    title: "E-mail",
-    dataIndex: "email",
-    key: "email",
-  },
-  {
-    title: "Função",
-    dataIndex: "role",
-    key: "role",
-  },
-  {
-    title: "Status",
-    dataIndex: "status",
-    key: "status",
-  },
-  {
-    title: "Cadastro",
-    dataIndex: "createdAt",
-    key: "createdAt",
-  },
-  {
-    title: "",
-    key: "action",
-  },
-]);
-
-const users = reactive({
-  list: [],
-  filters: {
-    status: "active",
-  },
-  pagination: {
-    page: 0,
-    limit: 8,
-    total: 0,
-  },
-});
-
-const listUsers = async () => {
-  users.list = await list(
-    `?page=${users.pagination.page}&limit=${users.pagination.limit}`
-  );
-};
-
-const onClickOpenUserDrawer = (id) => {
+const onClickopenEditUserDrawer = (id) => {
   userId.value = id;
-  openUserDrawer.value = true;
+  openEditUserDrawer.value = true;
 };
 
-const onCloseUserDrawer = () => {
+const onCloseEditUserDrawer = () => {
   userId.value = "";
-  openUserDrawer.value = false;
-};
-
-const onChangePagination = async (page, pageSize) => {
-  users.pagination.page = page;
-  users.pagination.limit = pageSize;
+  openEditUserDrawer.value = false;
   listUsers();
 };
 
-onMounted(async () => {
-  try {
-    listUsers();
-  } catch (error) {
-    // Handle error if needed
-  }
+const onCreateUser = () => {
+  openCreateUserDrawer.value = false;
+  listUsers();
+};
+
+onMounted(() => {
+  listUsers();
 });
 </script>
 
@@ -109,13 +45,18 @@ onMounted(async () => {
   <div class="bg-white pd-20">
     <PageHeader title="Usuários" subTitle="Lista">
       <template #extra>
-        <a-button type="primary"
-          ><UserOutlined /> Criar usuário</a-button
+        <a-button type="primary" @click="openCreateUserDrawer = true"
+          ><UserOutlined /> Cadastrar usuário</a-button
         ></template
       >
     </PageHeader>
 
-    <a-table :pagination="false" :columns="columns" :data-source="users.list">
+    <a-table
+      :pagination="false"
+      :columns="columns"
+      :data-source="users.list"
+      size="small"
+    >
       <template #bodyCell="{ column, text }">
         <template v-if="column.dataIndex === '_id'">
           <a-tag class="f10">{{ text }}</a-tag>
@@ -123,9 +64,20 @@ onMounted(async () => {
 
         <template v-if="column.key === 'action'">
           <EditOutlined
-            @click="onClickOpenUserDrawer(text._id)"
+            class="mr-10"
+            @click="onClickopenEditUserDrawer(text._id)"
             style="color: #1677ff"
           />
+
+          <a-popconfirm
+            title="Apagar usuário?"
+            placement="left"
+            ok-text="Sim"
+            cancel-text="Não"
+            @confirm="onClickDeleteUser(text._id)"
+          >
+            <DeleteOutlined style="color: red" />
+          </a-popconfirm>
         </template>
       </template>
     </a-table>
@@ -141,16 +93,30 @@ onMounted(async () => {
     </div>
 
     <a-drawer
-      :open="openUserDrawer"
-      class="custom-class"
       placement="right"
+      destroyOnClose
+      :open="openCreateUserDrawer"
+      :closable="false"
       :width="600"
-      @close="onCloseUserDrawer"
+      @close="openCreateUserDrawer = false"
     >
-      <template #title>
-        ID <a-tag class="f12">{{ userId }}</a-tag>
-      </template>
-      <UserEditDrawer v-if="openUserDrawer" :userId="userId" />
+      <template #title> Criar usuário</template>
+      <CreateUserForm
+        v-if="openCreateUserDrawer"
+        @onCreateUser="onCreateUser"
+      />
+    </a-drawer>
+
+    <a-drawer
+      placement="right"
+      destroyOnClose
+      :open="openEditUserDrawer"
+      :closable="false"
+      :width="600"
+      @close="onCloseEditUserDrawer"
+    >
+      <template #title> ID - {{ userId }} </template>
+      <UserEditDrawer v-if="openEditUserDrawer" :userId="userId" />
     </a-drawer>
   </div>
 </template>

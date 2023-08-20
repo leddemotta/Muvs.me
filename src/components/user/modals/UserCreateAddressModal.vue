@@ -2,7 +2,7 @@
 import { onMounted, ref, reactive, defineEmits } from "vue";
 onMounted, ref, reactive;
 
-const emit = defineEmits(["onCreateAddres"]);
+const emit = defineEmits(["onCreateAddress"]);
 
 import AddressService from "@/services/AddressService";
 import UserCreateAddressForm from "../forms/UserCreateAddressForm.vue";
@@ -20,15 +20,15 @@ const create = async (payload) => {
   }
 };
 
-const onCreateAddres = () => {
-  emit("onCreateAddres");
+const onCreateAddress = () => {
+  emit("onCreateAddress");
 };
 </script>
 
 <template>
   <div>
     <UserCreateAddressForm
-      @onCreateAddres="onCreateAddres"
+      @onCreateAddress="onCreateAddress"
       :userId="userId"
       :fieldSizes="{
         zipCode: 12,

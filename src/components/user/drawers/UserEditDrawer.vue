@@ -1,32 +1,25 @@
 <script setup>
-import { onMounted, ref, reactive } from "vue";
-import AuthService from "@/services/AuthService";
-import UserFormFields from "@/components/user/forms/UserFormFields.vue";
+import { onMounted, ref, defineProps } from "vue";
+import UserForm from "@/components/user/forms/UserForm.vue";
+import userReusables from "../reusables/userReusables";
+
+const { theUser, userDetails } = userReusables;
 
 const props = defineProps({
   userId: String,
 });
 
-let theUser = ref({});
-
-const details = async (payload) => {
-  try {
-    const { data } = await AuthService.details(payload);
-    //console.log(data);
-    theUser.value = data;
-    //  console.log(theUser);
-  } catch (error) {
-    console.log(error.message);
-  }
-};
-
 onMounted(() => {
-  details(props.userId);
+  userDetails(props.userId);
 });
 </script>
 
 <template>
   <div>
-    <UserFormFields v-if="theUser.user !== undefined" :user="theUser.user" :addresses="theUser.addresses"   />
+    <UserForm
+      v-if="theUser.user !== undefined"
+      :user="theUser.user"
+      :addresses="theUser.addresses"
+    />
   </div>
 </template>

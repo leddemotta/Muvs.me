@@ -131,7 +131,7 @@ const create = async (payload) => {
     const { data } = await AddressService.create(payload);
     console.log(data);
 
-    emit("onCreateAddres");
+    emit("onCreateAddress");
     message.success("Endereço cadastrado!");
   } catch (error) {
     message.error(error.response.data.message);

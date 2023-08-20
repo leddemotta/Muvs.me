@@ -17,6 +17,7 @@
     "ant-design-vue": "^4.0.0",
     "axios": "^1.4.0",
     "date-fns": "^2.30.0",
+    "dayjs": "^1.11.9",
     "http-status-codes": "^2.2.0",
     "pinia": "^2.1.4",
     "replace-once": "^1.0.0",
