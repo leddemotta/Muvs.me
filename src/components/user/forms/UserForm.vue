@@ -3,6 +3,8 @@ import dayjs from "dayjs";
 import { ref, onMounted, defineProps, defineEmits } from "vue";
 
 import UserAddressTab from "@/components/user/tabs/UserAddressTab.vue";
+import UserSettingsTab from "@/components/user/tabs/UserSettingsTab.vue";
+
 import userReusables from "../reusables/userReusables";
 
 const {
@@ -230,6 +232,9 @@ const onFinishFailed = (errorInfo) => console.log("Failed:", errorInfo);
       </aTabPane>
       <aTabPane key="address" tab="Endereços">
         <UserAddressTab :userId="props.user._id" />
+      </aTabPane>
+      <aTabPane key="settings" tab="Configurações">
+        <UserSettingsTab :userId="props.user._id" />
       </aTabPane>
     </aTabs>
   </aForm>

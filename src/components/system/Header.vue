@@ -3,7 +3,8 @@ import { onMounted, reactive, ref } from "vue";
 import { useUserStore } from "@/store/userStore";
 import AuthService from "@/services/AuthService";
 
-// imgs
+import { ApartmentOutlined } from "@ant-design/icons-vue";
+
 import userImg from "@/assets/images/user.png";
 import notificationImg from "@/assets/images/reminders.png";
 import settingsImg from "@/assets/images/settings.png";
@@ -91,6 +92,27 @@ const adminMenu = reactive([
     route: "/vehicles",
     show: true,
   },
+  {
+    name: "Enviar notificação",
+    ico: "",
+    class: "",
+    route: "/notifications/sender",
+    show: true,
+  },
+  {
+    name: "Cupons",
+    ico: "",
+    class: "",
+    route: "/coupons",
+    show: true,
+  },
+  {
+    name: "Logs",
+    ico: "",
+    class: "",
+    route: "/logs",
+    show: true,
+  },
 ]);
 </script>
 
@@ -158,16 +180,17 @@ const adminMenu = reactive([
     </a-row>
   </header>
 
-  <a-drawer
+  <aDrawer
     class="admin-menu"
     placement="left"
     :closable="false"
     :open="onClickOpenAdminMenu"
+    :width="250"
     @close="onClickOpenAdminMenu = false"
   >
-    <template #title> Admin Area </template>
+    <template #title> <apartment-outlined class="mr-5" /> Admin Area </template>
 
-    <a-list size="small" :bordered="false" :data-source="adminMenu">
+    <aList size="small" :bordered="false" :data-source="adminMenu">
       <template #renderItem="{ item }">
         <a-list-item
           ><router-link :to="item.route">{{
@@ -175,8 +198,8 @@ const adminMenu = reactive([
           }}</router-link></a-list-item
         >
       </template>
-    </a-list>
-  </a-drawer>
+    </aList>
+  </aDrawer>
 </template>
 
 <style lang="sass">
@@ -186,29 +209,11 @@ const adminMenu = reactive([
 </style>
 
 <style lang="sass" scoped>
+.admin-menu
+  ul
+    li
+      padding: 10px 22px
 
-.add-btn
-  position: fixed !important
-  right: 25px !important
-  bottom: 20px
-  height: 80px !important
-  width: 80px !important
-  border-radius: 50px
-  z-index: 5
-  .plus
-    position: absolute
-    top: 2px
-    right: 0px
-    border: 2px solid #ff4228
-    background-color: #FFF
-    color: #ff4228
-    font-weight: 900
-    line-height: 1.2
-    height: 20px !important
-    width: 20px !important
-    border-radius: 50px
-  img
-    width: 50px
 .header
   padding: 30px 14px 40px
   position: fixed
@@ -257,4 +262,31 @@ const adminMenu = reactive([
         &:hover
           filter: grayscale(1)
           opacity: 1
+
+
+
+
+
+.add-btn
+  position: fixed !important
+  right: 25px !important
+  bottom: 20px
+  height: 80px !important
+  width: 80px !important
+  border-radius: 50px
+  z-index: 5
+  .plus
+    position: absolute
+    top: 2px
+    right: 0px
+    border: 2px solid #ff4228
+    background-color: #FFF
+    color: #ff4228
+    font-weight: 900
+    line-height: 1.2
+    height: 20px !important
+    width: 20px !important
+    border-radius: 50px
+  img
+    width: 50px
 </style>

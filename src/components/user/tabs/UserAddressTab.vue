@@ -72,6 +72,9 @@ onMounted(() => {
                 {{ item.street }}, {{ item.number }}, {{ item.neighborhood }} -
                 {{ item.zipCode }}
               </div>
+              <div class="complement" v-if="item.complement">
+                {{ item.complement }}
+              </div>
             </template>
             <template #avatar>
               <environment-outlined class="pin" />
@@ -81,10 +84,25 @@ onMounted(() => {
       </template>
     </aList>
   </div>
-  <div class="mt-20 a-center">
-    <a-button @click="openCreateAddressModal = true" class="f12">
-      Cadastrar endereço
-    </a-button>
+
+  <div class="a-center" v-if="addresses.list.length == 0">
+    <img
+      class="mt-20"
+      src="@/assets/images/profile/address-girl.png"
+      width="300"
+    />
+    <a-result
+      class="pd-0"
+      status=""
+      title=""
+      sub-title="Nenhum endereço cadastrado."
+    >
+      <template #extra>
+        <a-button @click="openCreateAddressModal = true" class="f12">
+          Cadastrar endereço
+        </a-button>
+      </template>
+    </a-result>
   </div>
 
   <aModal
@@ -123,6 +141,9 @@ onMounted(() => {
     color: #333
     font-weight: 600
   .street
+    color: #aaa
+    font-size: 12px
+  .complement
     color: #aaa
     font-size: 12px
   h4

@@ -18,5 +18,6 @@ const props = defineProps({
 
 <style lang="sass" scoped>
 .m-page-header
-  padding: 20px 0
+  background: none
+  padding: 0
 </style>
