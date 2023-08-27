@@ -1,10 +1,12 @@
 <script setup>
 import dayjs from "dayjs";
-import { ref, onMounted, defineProps, defineEmits } from "vue";
+import { ref, onMounted, defineProps } from "vue";
 
+// components
 import UserAddressTab from "@/components/user/tabs/UserAddressTab.vue";
 import UserSettingsTab from "@/components/user/tabs/UserSettingsTab.vue";
 
+// reuse
 import userReusables from "../reusables/userReusables";
 
 const {

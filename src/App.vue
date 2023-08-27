@@ -17,6 +17,7 @@ userStore.checkSessionStorage();
   <div>
     <a-config-provider
       :theme="{
+        hashed: false,
         token: {
           colorPrimary: '#ff4228',
           borderRadius: 4,
