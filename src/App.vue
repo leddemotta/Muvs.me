@@ -38,10 +38,10 @@ userStore.checkSessionStorage();
   </div>
 </template>
 
-<style lang="sass">
-@import 'assets/sass/style.sass'
+<style>
+@import "assets/css/tailwind.css";
 </style>
 
-<style lang="css">
-@import "assets/fonts/icomoon/style.css";
+<style lang="sass">
+@import 'assets/sass/style.sass'
 </style>

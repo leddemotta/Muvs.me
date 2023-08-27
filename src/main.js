@@ -1,11 +1,13 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
+
 import Antd from "ant-design-vue";
 import VueTheMask from "vue-the-mask";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-import "./index.css";
+
+// import './assets/css/tailwind.css';
 
 import ApiClientService from "./plugins/axios";
 
