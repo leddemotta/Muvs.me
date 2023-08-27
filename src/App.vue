@@ -38,10 +38,6 @@ userStore.checkSessionStorage();
   </div>
 </template>
 
-<style>
-@import "assets/css/tailwind.css";
-</style>
-
 <style lang="sass">
 @import 'assets/sass/style.sass'
 </style>
