@@ -1,0 +1,9 @@
+{
+  "hello": "hello | Hello",
+  "write": "write | Write",
+  "title": "title | Title",
+  "content": "content | Content",
+  "send": "send | Send",
+  "notification": "notification | Notification",
+  "required": "required | Required"
+}

@@ -8,13 +8,13 @@ const notificationFormRules = reactive({
   title: [
     {
       required: true,
-      message: "Obrigatório",
+      message: "Required",
     },
   ],
   content: [
     {
       required: true,
-      message: "Obrigatório",
+      message: "Required",
     },
   ],
 });
@@ -49,20 +49,20 @@ const onFinishFailed = (errorInfo) => console.log("Failed:", errorInfo);
 
             <div class="mb-20">
               <a-form-item name="title">
-                <label>Title</label>
+                <label>{{ $t("title", 2) }}</label>
                 <a-input
                   v-model:value="notificationFormState.title"
-                  placeholder="Write..."
+                  :placeholder="`${$t('write')}...`"
                 />
               </a-form-item>
             </div>
 
             <div class="mb-10">
               <a-form-item name="content">
-                <label>Content</label>
+                <label>{{ $t("content", 2) }}</label>
                 <a-textarea
                   v-model:value="notificationFormState.content"
-                  placeholder="Write a message..."
+                  :placeholder="`${$t('write')}...`"
                   :rows="4"
                 />
               </a-form-item>
@@ -80,7 +80,7 @@ const onFinishFailed = (errorInfo) => console.log("Failed:", errorInfo);
 
             <div class="text-center">
               <a-button type="primary" html-type="submit"
-                >Send notification</a-button
+                >{{ $t("send", 2) }} {{ $t("notification") }}</a-button
               >
             </div>
           </aForm>

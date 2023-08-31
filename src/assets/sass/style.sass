@@ -25,8 +25,15 @@ body
 input, button, select, optgroup, textarea, p, div, span, font
   font-family: $font !important
 
-button, [type='button'], [type='reset'], [type='submit']
+.ant-btn-primary
   background-color: $primary-color !important
+  color: #FFF !important
+  &.ant-btn-background-ghost
+    color: #ff4228 !important
+    background-color: transparent !important
+    border-color: #ff4228 !important
+    text-shadow: none
+
 
 a
   color: $primary-color !important
