@@ -4,6 +4,9 @@ const NotificationService = {
   create(payload) {
     return ApiClientService.post(`/notifications`, payload);
   },
+  send(payload) {
+    return ApiClientService.post(`/notifications/send`, payload);
+  },
   list(payload) {
     return ApiClientService.get(`/notifications${payload}`);
   },

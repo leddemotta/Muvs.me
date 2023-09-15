@@ -1,7 +1,8 @@
 <script setup>
 import PageHeader from "@/components/general/PageHeader.vue";
+import NotificationService from "@/services/NotificationService";
 import { ref, reactive } from "vue";
-
+import { message } from "ant-design-vue";
 const notificationFormRef = ref();
 const notificationFormState = reactive({});
 const notificationFormRules = reactive({
@@ -19,8 +20,22 @@ const notificationFormRules = reactive({
   ],
 });
 
+const send = async (payload) => {
+  try {
+    const { data } = await NotificationService.send(payload);
+    data;
+    message.success("Notificações enviadas com sucesso!");
+    notificationFormState.title = "";
+    notificationFormState.content = "";
+    notificationFormState.url = "";
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 const onFinish = (values) => {
   console.log("Success:", values, notificationFormState);
+  send(values);
 };
 
 const onFinishFailed = (errorInfo) => console.log("Failed:", errorInfo);

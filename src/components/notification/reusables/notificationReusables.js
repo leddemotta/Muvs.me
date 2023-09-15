@@ -16,10 +16,21 @@ const notifications = reactive({
   },
 });
 
+const onChangePagination = async (page, pageSize) => {
+  notifications.pagination.page = page;
+  notifications.pagination.limit = pageSize;
+  listNotificationes();
+};
+
 const listNotificationes = async () => {
   try {
+    let filters = "";
+
+    if (notifications.filters.userId)
+      filters = `&userId=${notifications.filters.userId}`;
+
     const res = await NotificationService.list(
-      `?page=${notifications.pagination.page}&limit=${notifications.pagination.limit}`
+      `?page=${notifications.pagination.page}&limit=${notifications.pagination.limit}${filters}`
     );
 
     notifications.list = res.data.list;
@@ -62,4 +73,5 @@ export default {
   listNotificationes,
   deleteNotification,
   updateNotification,
+  onChangePagination,
 };

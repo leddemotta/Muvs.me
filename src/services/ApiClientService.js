@@ -27,7 +27,9 @@ ApiClientService.interceptors.response.use(
       localStorage.removeItem("user");
       router.push("/login");
     }
+
     const finalError = error;
+
     if (error.response) {
       if (error.response?.status === httpStatus.UNAUTHORIZED) {
         finalError.message = "Your session has expired. Please login again.";

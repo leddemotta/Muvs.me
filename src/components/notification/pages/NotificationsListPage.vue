@@ -1,5 +1,8 @@
 <script setup>
 import { onMounted } from "vue";
+import { useUserStore } from "../../../store/userStore";
+import { useRouter } from "vue-router";
+
 import {
   MenuOutlined,
   EyeOutlined,
@@ -9,8 +12,15 @@ import {
 import notificationReusables from "../reusables/notificationReusables";
 import PageHeader from "@/components/general/PageHeader.vue";
 
-const { notifications, listNotificationes, updateNotification } =
-  notificationReusables;
+const router = useRouter();
+const userStore = useUserStore();
+
+const {
+  notifications,
+  listNotificationes,
+  onChangePagination,
+  updateNotification,
+} = notificationReusables;
 
 const onClickMarkAsRead = async (notification) => {
   notification.isRead = true;
@@ -24,7 +34,12 @@ const onClickMarkAsUnRead = async (notification) => {
   await listNotificationes();
 };
 
+const onClickGoToRoute = (route) => {
+  if (route) router.push(route);
+};
+
 onMounted(() => {
+  notifications.filters.userId = userStore.user._id;
   listNotificationes();
 });
 </script>
@@ -34,63 +49,74 @@ onMounted(() => {
     <div class="wrapper">
       <PageHeader class="mt-20 mb-10" title="Notificações" />
       <div class="notifications">
-        <aList item-layout="horizontal" :data-source="notifications.list">
-          <template #renderItem="{ item }">
-            <div class="notification" :class="item.isRead ? 'readed' : ''">
-              <aRow type="flex" align="middle" :gutter="16">
-                <aCol :span="3">
-                  <img
-                    src="@/assets/images/profile-pic.png"
-                    width="60"
-                    style="
-                      position: relative;
-                      top: 2px;
-                      left: 3px;
-                      border-radius: 50px;
-                    "
-                  />
-                </aCol>
+        <div v-if="notifications.list.length > 0">
+          <aList item-layout="horizontal" :data-source="notifications.list">
+            <template #renderItem="{ item }">
+              <div class="notification" :class="item.isRead ? 'readed' : ''">
+                <aRow type="flex" align="middle" :gutter="16">
+                  <aCol :span="3">
+                    <img
+                      src="@/assets/images/profile-pic.png"
+                      width="60"
+                      style="
+                        position: relative;
+                        top: 2px;
+                        left: 3px;
+                        border-radius: 50px;
+                      "
+                    />
+                  </aCol>
 
-                <aCol :span="19">
-                  <div class="title">{{ item.title }}</div>
-                  <div class="description">{{ item.content }}</div>
-                  <div class="date">
-                    {{
-                      item.sentByUserId
-                        ? `${item.sentByUser.firstName} ${item.sentByUser.lastName} - `
-                        : `MUVS.ME -`
-                    }}
-                    {{ item.createdAt }}
-                  </div>
-                </aCol>
+                  <aCol @click="onClickGoToRoute(item.action)" :span="19">
+                    <div class="title">{{ item.title }}</div>
+                    <div class="description">{{ item.content }}</div>
+                    <div class="date">
+                      {{
+                        item.sentByUserId
+                          ? `${item.sentByUser.firstName} ${item.sentByUser.lastName} - `
+                          : `MUVS.ME -`
+                      }}
+                      {{ item.createdAt }}
+                    </div>
+                  </aCol>
 
-                <aCol :span="2">
-                  <aPopover placement="bottom" trigger="click">
-                    <template #content>
-                      <div class="notification-actions">
-                        <a-button
-                          v-if="item.isRead == 0"
-                          @click="onClickMarkAsRead(item)"
-                        >
-                          <EyeInvisibleOutlined />
-                          Marcar como lida
-                        </a-button>
-                        <a-button
-                          v-if="item.isRead == 1"
-                          @click="onClickMarkAsUnRead(item)"
-                        >
-                          <EyeOutlined /> Marcar como não lida
-                        </a-button>
-                      </div>
-                    </template>
-                    <MenuOutlined />
-                  </aPopover>
-                </aCol>
-              </aRow>
-            </div>
-          </template>
-        </aList>
+                  <aCol :span="2">
+                    <aPopover placement="bottom" trigger="click">
+                      <template #content>
+                        <div class="notification-actions">
+                          <a-button
+                            v-if="item.isRead == 0"
+                            @click="onClickMarkAsRead(item)"
+                          >
+                            <EyeInvisibleOutlined />
+                            Marcar como lida
+                          </a-button>
+                          <a-button
+                            v-if="item.isRead == 1"
+                            @click="onClickMarkAsUnRead(item)"
+                          >
+                            <EyeOutlined /> Marcar como não lida
+                          </a-button>
+                        </div>
+                      </template>
+                      <MenuOutlined />
+                    </aPopover>
+                  </aCol>
+                </aRow>
+              </div>
+            </template>
+          </aList>
 
+          <div class="text-center mt-6 mb-6">
+            <a-pagination
+              :current="notifications.pagination.page"
+              :pageSize="notifications.pagination.limit"
+              :total="notifications.pagination.total"
+              show-size-changer
+              @change="onChangePagination"
+            />
+          </div>
+        </div>
         <div v-if="notifications.list.length == 0" class="no-results">
           Nenhuma notificação até o momento.
         </div>
