@@ -1,8 +1,18 @@
 <script setup>
-import PageHeader from "@/components/general/PageHeader.vue";
-import NotificationService from "@/services/NotificationService";
+// libs
 import { ref, reactive } from "vue";
 import { message } from "ant-design-vue";
+import { useUserStore } from "@/store/userStore";
+
+// services
+import NotificationService from "@/services/NotificationService";
+
+// components
+import PageHeader from "@/components/general/PageHeader.vue";
+import logReusables from "@/components/log/reusables/logReusables";
+
+const { createLog } = logReusables;
+const { user } = useUserStore();
 const notificationFormRef = ref();
 const notificationFormState = reactive({});
 const notificationFormRules = reactive({
@@ -28,6 +38,13 @@ const send = async (payload) => {
     notificationFormState.title = "";
     notificationFormState.content = "";
     notificationFormState.url = "";
+    createLog({
+      userId: user._id,
+      moduleId: "",
+      moduleName: "notification",
+      action: "send-notification-to-all",
+      content: `${user.firstName} ${user.lastName} enviou uma notificação para todos os usuários do sistema.`,
+    });
   } catch (error) {
     console.log(error.message);
   }
@@ -102,9 +119,9 @@ const onFinishFailed = (errorInfo) => console.log("Failed:", errorInfo);
         </div>
       </aCol>
 
-      <aCol class="" :span="14">
+      <!-- <aCol class="" :span="14">
         <div class="bg-white px-5 py-5 rounded-lg">Later...</div>
-      </aCol>
+      </aCol> -->
     </aRow>
   </section>
 </template>

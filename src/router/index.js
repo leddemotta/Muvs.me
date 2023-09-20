@@ -15,6 +15,8 @@ import NotFound from "../views/public/NotFound.vue";
 // import VehiclePages from "@/components/vehicle/VehiclePages.vue";
 // import MyRents from "@/components/system/pages/MyRents.vue";
 import UsersList from "@/components/user/pages/UsersList.vue";
+import LogsList from "@/components/log/pages/LogsList.vue";
+import CouponsList from "@/components/coupon/pages/CouponsList.vue";
 
 const company = "Muvs.Me";
 const systemViews = (view) => () => import(`../views/${view}.vue`);
@@ -176,9 +178,9 @@ const coupons = [
   {
     path: "/coupons",
     name: "coupons",
-    component: UsersList,
+    component: CouponsList,
     meta: {
-      title: `Cupons - ${company}`,
+      title: `Coupons - ${company}`,
       page: "coupons",
       requiresAuth: true,
     },
@@ -189,7 +191,7 @@ const logs = [
   {
     path: "/logs",
     name: "logs",
-    component: UsersList,
+    component: LogsList,
     meta: {
       title: `Logs - ${company}`,
       page: "logs",

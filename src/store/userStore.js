@@ -13,6 +13,7 @@ export const useUserStore = defineStore({
       this.userId = userId;
       this.token = token;
       this.isLoggedIn = isLoggedIn;
+      //this.user =
 
       // Store the user data in session storage
       sessionStorage.setItem("userId", userId);
@@ -30,6 +31,8 @@ export const useUserStore = defineStore({
       sessionStorage.removeItem("token");
       sessionStorage.removeItem("isLoggedIn");
       sessionStorage.removeItem("user");
+
+      window.open("/login", "_self");
     },
     setToken(token) {
       this.token = token;
@@ -42,6 +45,7 @@ export const useUserStore = defineStore({
       this.user = null;
     },
     checkSessionStorage() {
+      console.log('test');
       // Check if the user is logged in (e.g., during app initialization)
       const user = sessionStorage.getItem("user");
       if (user) {

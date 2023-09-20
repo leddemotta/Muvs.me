@@ -5,7 +5,11 @@ import dayjs from "dayjs";
 
 import UserService from "@/services/UserService";
 import userReusables from "../reusables/userReusables";
+import logReusables from "@/components/log/reusables/logReusables";
+import { useUserStore } from "@/store/userStore";
 
+const { createLog } = logReusables;
+const { user } = useUserStore();
 const { formRules, formRef, formState, isLoading, genders, roles, status } =
   userReusables;
 
@@ -33,6 +37,15 @@ const create = async (payload) => {
     const { data } = await UserService.create(payload);
     console.log(data);
     emit("onCreateUser");
+
+    createLog({
+      userId: user._id,
+      moduleId: data._id,
+      moduleName: "user",
+      action: "create-user",
+      content: `${user.firstName} ${user.lastName} criou um novo usuário ID (${data._id}).`,
+    });
+
     message.success("Usuário criado!");
   } catch ({ response }) {
     message.error(response.data.error);

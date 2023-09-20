@@ -1,6 +1,15 @@
-import UserService from "@/services/UserService";
 import { ref, reactive } from "vue";
+//import { useStore } from 'pinia';
 import { message } from "ant-design-vue";
+import UserService from "@/services/UserService";
+import logReusables from "@/components/log/reusables/logReusables";
+//import { useUserStore } from "@/store/userStore";
+
+const { createLog } = logReusables;
+// const { user } = useUserStore();
+
+//const store  = useStore(useUserStore);
+
 
 const formState = reactive({});
 const formRef = ref();
@@ -11,6 +20,15 @@ const onClickDeleteUser = async (payload) => {
   try {
     const { data } = await UserService.delete(payload);
     message.success(data.message);
+
+    createLog({
+      userId: user._id,
+      moduleId: payload,
+      moduleName: "user",
+      action: "delete-user",
+      content: `${user.firstName} ${user.lastName} deletou o usuário ID (${payload}).`,
+    });
+
     listUsers();
   } catch (error) {
     console.log(error.message);

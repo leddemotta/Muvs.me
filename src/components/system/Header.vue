@@ -1,44 +1,23 @@
 <script setup>
-import { onMounted, reactive, ref } from "vue";
+import { reactive, ref, onMounted } from "vue";
 import { useUserStore } from "@/store/userStore";
-import AuthService from "@/services/AuthService";
 
 import { ApartmentOutlined } from "@ant-design/icons-vue";
 
+// imgs
 import userImg from "@/assets/images/user.png";
 import notificationImg from "@/assets/images/reminders.png";
 import settingsImg from "@/assets/images/settings.png";
 import messageImg from "@/assets/images/message.png";
 import bikeImg from "@/assets/images/bicycle.png";
 
-const userStore = useUserStore();
+const { user, logout, checkSessionStorage } = useUserStore();
 const onClickOpenAdminMenu = ref(false);
-
-const details = async (payload) => {
-  try {
-    const { data } = await AuthService.details(payload);
-    userStore.setUser(JSON.stringify(data.user));
-  } catch (error) {
-    console.log(error.message);
-  }
-};
-
-const logOut = () => {
-  userStore.logout();
-  window.open("/login", "_self");
-};
 
 const itemAction = (item) => {
   if (item.name === "Admin") onClickOpenAdminMenu.value = true;
   if (item.name !== "Admin") onClickOpenAdminMenu.value = false;
 };
-
-onMounted(() => {
-  setTimeout(() => {
-    details(userStore.userId);
-    userStore.checkSessionStorage();
-  }, 500);
-});
 
 const menu = reactive([
   {
@@ -47,7 +26,7 @@ const menu = reactive([
     class: "",
     route: "/notifications",
     badge: true,
-    count: 5,
+    count: 0,
     show: true,
   },
   {
@@ -73,7 +52,7 @@ const menu = reactive([
     ico: settingsImg,
     class: "",
     route: "",
-    show: userStore.user.role === "admin" ? true : false,
+    show: user.role === "admin" ? true : false,
   },
 ]);
 
@@ -147,20 +126,13 @@ const adminMenu = reactive([
                     <span>{{ item.name }}</span>
                   </template>
 
-                  <a-badge v-if="item.badge" :count="item.count">
+                  <a-badge :count="item.count">
                     <img
                       alt="muvsme"
                       :src="item.ico"
                       :width="item.width ? item.width : '30'"
                     />
                   </a-badge>
-                  <div v-if="!item.badge">
-                    <img
-                      alt="muvsme"
-                      :src="item.ico"
-                      :width="item.width ? item.width : '30'"
-                    />
-                  </div>
                 </a-tooltip>
               </router-link>
             </li>
@@ -168,12 +140,17 @@ const adminMenu = reactive([
         </div>
       </a-col>
       <a-col :span="24">
-        <a class="logout" @click="logOut()">
+        <a class="logout" @click="logout()">
           <a-tooltip placement="right">
             <template #title>
               <span>Sair</span>
             </template>
-            <img alt="muvsme" src="@/assets/images/logout.png" width="30" />
+            <img
+              class="inline-block"
+              alt="muvsme"
+              src="@/assets/images/logout.png"
+              width="30"
+            />
           </a-tooltip>
         </a>
       </a-col>
@@ -218,13 +195,14 @@ const adminMenu = reactive([
   padding: 30px 14px 40px
   position: fixed
   height: 100%
-  width: 80px
+  width: 100px
   background: #fff
   text-align: center
   box-shadow: 0 0 10px 0 rgba(0,0,0,.05)
   z-index: 10
+  text-align: center
   .actions
-    height: 95vh
+    height: 90vh
   .logout
     filter: grayscale(1)
     opacity: 0.4
@@ -238,8 +216,6 @@ const adminMenu = reactive([
   .ant-row-flex
     height: 100%
   .nav
-    float: left
-    width: 100%
     ul
       padding: 0
       margin: 0
@@ -262,31 +238,4 @@ const adminMenu = reactive([
         &:hover
           filter: grayscale(1)
           opacity: 1
-
-
-
-
-
-.add-btn
-  position: fixed !important
-  right: 25px !important
-  bottom: 20px
-  height: 80px !important
-  width: 80px !important
-  border-radius: 50px
-  z-index: 5
-  .plus
-    position: absolute
-    top: 2px
-    right: 0px
-    border: 2px solid #ff4228
-    background-color: #FFF
-    color: #ff4228
-    font-weight: 900
-    line-height: 1.2
-    height: 20px !important
-    width: 20px !important
-    border-radius: 50px
-  img
-    width: 50px
 </style>

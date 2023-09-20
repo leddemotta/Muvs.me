@@ -25,7 +25,7 @@ userStore.checkSessionStorage();
       }"
     >
       <section class="logged-in" v-if="userStore.isLoggedIn">
-        <SystemHeader />
+        <SystemHeader v-if="userStore.user.role" />
         <SystemContent />
         <SystemFooter />
       </section>
