@@ -1,28 +1,20 @@
 import { createRouter, createWebHistory } from "vue-router";
+
 import Login from "../views/public/Login.vue";
+import NotFound from "../views/public/NotFound.vue";
+
 import Profile from "@/components/system/pages/Profile.vue";
 import NotificationsListPage from "@/components/notification/pages/NotificationsListPage.vue";
 import SendNotificationsPage from "@/components/notification/pages/SendNotificationsPage.vue";
-
-import NotFound from "../views/public/NotFound.vue";
-
-// import Messages from "@/components/system/pages/Messages.vue";
-
-// import Notifications from "@/components/system/pages/Notifications.vue";
-// import Settings from "@/components/system/pages/Settings.vue";
-// import RegisterVehicle from "@/components/system/pages/RegisterVehicle.vue"
-// import MyVehicles from "@/components/system/pages/MyVehicles.vue";
-// import VehiclePages from "@/components/vehicle/VehiclePages.vue";
-// import MyRents from "@/components/system/pages/MyRents.vue";
 import UsersList from "@/components/user/pages/UsersList.vue";
+import VehiclesList from "@/components/vehicle/pages/VehiclesList.vue";
+import CreateVehicle from "@/components/vehicle/pages/CreateVehicle.vue";
 import LogsList from "@/components/log/pages/LogsList.vue";
 import CouponsList from "@/components/coupon/pages/CouponsList.vue";
 
 const company = "Muvs.Me";
-const systemViews = (view) => () => import(`../views/${view}.vue`);
-const systemPages = (view) => () => import(`@/components/${view}.vue`);
 
-systemPages;
+const systemViews = (view) => () => import(`../views/${view}.vue`);
 
 const publicPages = [
   {
@@ -119,7 +111,7 @@ const vehicles = [
   {
     path: "/vehicles",
     name: "vehicles",
-    component: UsersList,
+    component: VehiclesList,
     meta: {
       title: `Veículos - ${company}`,
       page: "vehicles",
@@ -127,9 +119,19 @@ const vehicles = [
     },
   },
   {
+    path: "/vehicles/new",
+    name: "new-vehicle",
+    component: CreateVehicle,
+    meta: {
+      title: `Cadastrar Veículo - ${company}`,
+      page: "vehicles",
+      requiresAuth: true,
+    },
+  },
+  {
     path: "/my-vehicles",
-    name: "vehicles",
-    component: UsersList,
+    name: "my-vehicles",
+    component: VehiclesList,
     meta: {
       title: `Veículos - ${company}`,
       page: "vehicles",

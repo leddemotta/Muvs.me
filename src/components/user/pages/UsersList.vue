@@ -43,7 +43,7 @@ onMounted(() => {
 
 <template>
   <div class="bg-white pd-20">
-    <PageHeader class="mt-20 mb-20" title="Usuários" subTitle="Lista">
+    <PageHeader class="mt-20 mb-20" title="Users" subTitle="List">
       <template #extra>
         <a-button type="primary" @click="openCreateUserDrawer = true"
           ><UserOutlined /> Cadastrar usuário</a-button

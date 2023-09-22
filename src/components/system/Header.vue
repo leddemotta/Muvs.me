@@ -170,7 +170,7 @@ const adminMenu = reactive([
     <aList size="small" :bordered="false" :data-source="adminMenu">
       <template #renderItem="{ item }">
         <a-list-item
-          ><router-link :to="item.route">{{
+          ><router-link @click="onClickOpenAdminMenu = false" :to="item.route">{{
             item.name
           }}</router-link></a-list-item
         >

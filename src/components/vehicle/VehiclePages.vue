@@ -12,7 +12,7 @@
 <script>
 import vehicleMixins from "@/mixins/vehicle/mixin.js";
 import VehicleDetails from "@/components/vehicle/pages/VehicleDetails.vue";
-import VehicleList from "./pages/VehicleList.vue";
+import VehicleList from "./pages/VehiclesList.vue";
 
 export default {
     mixins: [vehicleMixins],
