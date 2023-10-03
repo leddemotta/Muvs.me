@@ -27,7 +27,7 @@ const props = defineProps({
 
 const emit = defineEmits(["onUpdateUser"]);
 
-const activeKey = ref("data");
+const activeKey = ref("settings");
 
 onMounted(() => {
   formState.firstName = props.user.firstName;
@@ -236,7 +236,7 @@ const onFinishFailed = (errorInfo) => console.log("Failed:", errorInfo);
         <UserAddressTab :userId="props.user._id" />
       </aTabPane>
       <aTabPane key="settings" tab="Configurações">
-        <UserSettingsTab :userId="props.user._id" />
+        <UserSettingsTab :userId="props.user._id" :user="props.user" :formState="formState" />
       </aTabPane>
     </aTabs>
   </aForm>

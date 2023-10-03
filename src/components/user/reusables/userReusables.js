@@ -95,6 +95,11 @@ const columns = reactive([
     key: "_id",
   },
   {
+    title: "",
+    dataIndex: "avatar",
+    key: "avatar",
+  },
+  {
     title: "Nome",
     dataIndex: "firstName",
     key: "firstName",

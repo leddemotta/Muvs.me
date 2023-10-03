@@ -104,6 +104,11 @@ onMounted(() => {
       </template>
     </a-result>
   </div>
+  <div class="a-center" v-else>
+    <a-button @click="openCreateAddressModal = true" class="f12">
+      Cadastrar endereço
+    </a-button>
+  </div>
 
   <aModal
     v-model:open="openCreateAddressModal"

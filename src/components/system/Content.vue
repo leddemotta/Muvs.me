@@ -13,6 +13,6 @@
 <style lang="sass" scoped>
 .content
   background: #f4f4f4
-  padding: 0px 0px 30px 100px
+  padding: 0px 0px 0px 80px
   min-height: 684px
 </style>

@@ -11,7 +11,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="bg-white pd-20">
+  <div class="bg-white pd-20  min-h-[686px]">
     <PageHeader class="mt-20 mb-20" title="Logs" subTitle="List" />
 
     <a-table

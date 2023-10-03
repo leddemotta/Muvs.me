@@ -8,7 +8,10 @@ import NotificationsListPage from "@/components/notification/pages/Notifications
 import SendNotificationsPage from "@/components/notification/pages/SendNotificationsPage.vue";
 import UsersList from "@/components/user/pages/UsersList.vue";
 import VehiclesList from "@/components/vehicle/pages/VehiclesList.vue";
+import EditVehicle from "@/components/vehicle/pages/EditVehicle.vue";
 import CreateVehicle from "@/components/vehicle/pages/CreateVehicle.vue";
+import VehicleDetails from "@/components/vehicle/pages/VehicleDetails.vue";
+
 import LogsList from "@/components/log/pages/LogsList.vue";
 import CouponsList from "@/components/coupon/pages/CouponsList.vue";
 
@@ -109,34 +112,33 @@ const users = [
 
 const vehicles = [
   {
-    path: "/vehicles",
-    name: "vehicles",
-    component: VehiclesList,
-    meta: {
-      title: `Veículos - ${company}`,
-      page: "vehicles",
-      requiresAuth: true,
-    },
-  },
-  {
-    path: "/vehicles/new",
-    name: "new-vehicle",
-    component: CreateVehicle,
-    meta: {
-      title: `Cadastrar Veículo - ${company}`,
-      page: "vehicles",
-      requiresAuth: true,
-    },
-  },
-  {
     path: "/my-vehicles",
     name: "my-vehicles",
     component: VehiclesList,
     meta: {
       title: `Veículos - ${company}`,
-      page: "vehicles",
       requiresAuth: true,
     },
+  },
+  {
+    path: "/vehicles/:id/details",
+    name: "details-vehicle",
+    component: VehicleDetails,
+  },
+  {
+    path: "/vehicles/:id/edit",
+    name: "edit-vehicle",
+    component: EditVehicle,
+  },
+  {
+    path: "/vehicles/new",
+    name: "new-vehicle",
+    component: CreateVehicle,
+  },
+  {
+    path: "/vehicles",
+    name: "vehicles-list",
+    component: VehiclesList,
   },
 ];
 

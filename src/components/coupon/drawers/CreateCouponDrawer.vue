@@ -10,10 +10,10 @@ const { formRules, formState, formRef, isLoading, createCoupon } =
 const emit = defineEmits(["onCreateCoupon"]);
 
 onMounted(() => {
-  formState.couponCode = "FIRSTONE";
-  formState.description = "first coupon of all";
-  formState.discountPercentage = 10;
-  formState.usageLimit = 1;
+  // formState.couponCode = "FIRSTONE";
+  // formState.description = "first coupon of all";
+  // formState.discountPercentage = 10;
+  // formState.usageLimit = 1;
 });
 
 const onFinish = (values) => {

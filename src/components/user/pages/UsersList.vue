@@ -42,7 +42,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="bg-white pd-20">
+  <div class="bg-white pd-20 min-h-[686px]">
     <PageHeader class="mt-20 mb-20" title="Users" subTitle="List">
       <template #extra>
         <a-button type="primary" @click="openCreateUserDrawer = true"
@@ -60,6 +60,10 @@ onMounted(() => {
       <template #bodyCell="{ column, text }">
         <template v-if="column.dataIndex === '_id'">
           <a-tag class="f10">{{ text }}</a-tag>
+        </template>
+
+        <template v-if="column.dataIndex === 'avatar'">
+          <a-avatar :src="text" :size="30"></a-avatar>
         </template>
 
         <template v-if="column.key === 'action'">

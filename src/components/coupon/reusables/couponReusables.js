@@ -39,7 +39,6 @@ const listCoupons = async () => {
     `?page=${coupons.pagination.page}&limit=${coupons.pagination.limit}`
   ).then(({ data }) => {
     coupons.list = data.list;
-
     coupons.pagination.page = data.pagination.page;
     coupons.pagination.limit = data.pagination.limit;
     coupons.pagination.total = data.pagination.total;
