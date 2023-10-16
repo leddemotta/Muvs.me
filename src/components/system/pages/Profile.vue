@@ -13,8 +13,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <section class="container pd-20">
-    <PageHeader class="mt-20 mb-10" title="Perfil" />
+  <section class="container p-8">
+    <PageHeader class="mt-3 mb-1" title="Perfil" />
 
     <div class="profile">
       <UserForm

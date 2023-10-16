@@ -162,7 +162,7 @@ const onFinishFailed = (errorInfo) => {
       @finishFailed="onFinishFailed"
     >
       <a-row>
-        <a-col v-if="currentStep === 0" class="mb-20" :span="24">
+        <a-col v-if="currentStep === 0" class="mb-5" :span="24">
           <a @click="$router.go(-1)"> <ArrowLeftOutlined /> Voltar </a>
         </a-col>
 
@@ -183,7 +183,7 @@ const onFinishFailed = (errorInfo) => {
         </a-col>
       </a-row>
 
-      <a-row v-if="currentStep == 0" class="a-left mt-20" :gutter="20">
+      <a-row v-if="currentStep == 0" class="a-left mt-5" :gutter="20">
         <a-col :span="12">
           <a-form-item name="firstName">
             <label>Nome</label>
@@ -273,7 +273,7 @@ const onFinishFailed = (errorInfo) => {
           </a-form-item>
         </a-col>
 
-        <a-col class="mt-10" span="24">
+        <a-col class="mt-5" span="24">
           <a-button
             class="bolder w100"
             type="primary"
@@ -316,7 +316,7 @@ const onFinishFailed = (errorInfo) => {
           </a-button>
         </a-col>
 
-        <a-col class="mt-10" span="18">
+        <a-col class="mt-5" span="18">
           <a-button
             class="bolder w100"
             type="primary"
@@ -361,7 +361,7 @@ const onFinishFailed = (errorInfo) => {
           </a-form-item>
         </a-col>
 
-        <a-col class="mt-10" span="6">
+        <a-col class="mt-5" span="6">
           <a-button
             class="bolder w100"
             type="primary"
@@ -373,7 +373,7 @@ const onFinishFailed = (errorInfo) => {
           </a-button>
         </a-col>
 
-        <a-col class="mt-10" span="18">
+        <a-col class="mt-5" span="18">
           <a-button
             class="bolder w100"
             type="primary"

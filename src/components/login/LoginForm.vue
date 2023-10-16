@@ -1,9 +1,9 @@
 <script setup>
 import { reactive, ref } from "vue";
-import { useUserStore } from "../../store/userStore";
 import { useRouter } from "vue-router";
-import AuthService from "@/services/AuthService";
+import { useUserStore } from "../../store/userStore";
 import { message } from "ant-design-vue";
+import AuthService from "@/services/AuthService";
 
 const router = useRouter();
 const userStore = useUserStore();
@@ -22,14 +22,13 @@ const login = async (payload) => {
     router.push("/");
   } catch (error) {
     console.log(error);
-    //  message.error(error.response.data.message);
+    // message.error(error.response.data.message);
   } finally {
     isLoading.value = false;
   }
 };
 
 const onFinish = (values) => {
-  console.log("Success:", values);
   login(values);
 };
 
@@ -46,18 +45,17 @@ const onFinishFailed = (errorInfo) => {
       @finish="onFinish"
       @finishFailed="onFinishFailed"
     >
-      <h1 class="mb-30">
-        <RouterLink to="/">
-          <img
-            class="c-pointer"
-            src="@/assets/images/logo.png"
-            width="200"
-            alt="muvsme"
-          />
-        </RouterLink>
+      <h1 class="mb-3 text-center">
+        <img
+          class="c-pointer inline"
+          src="@/assets/images/logo.png"
+          width="200"
+          alt="muvsme"
+          @click="router.push('/')"
+        />
       </h1>
 
-      <p class="mb-20">Insira seu e-mail e senha:</p>
+      <p class="mb-5">Insira seu e-mail e senha:</p>
 
       <a-form-item
         name="email"
@@ -109,7 +107,7 @@ const onFinishFailed = (errorInfo) => {
     <a-divider class="f12">Novo(a) por aqui?</a-divider>
 
     <a-button
-      class="w100 mt-10 bolder"
+      class="w100 mt-5 bolder"
       type="primary"
       size="large"
       ghost

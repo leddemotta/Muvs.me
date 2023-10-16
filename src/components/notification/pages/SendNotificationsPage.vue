@@ -59,9 +59,8 @@ const onFinishFailed = (errorInfo) => console.log("Failed:", errorInfo);
 </script>
 
 <template>
-  <section class="pd-20">
-    <PageHeader class="mt-20 mb-10" title="Send notifications" />
-
+  <section class="p-8">
+    <PageHeader class=" mb-5" title="Send notifications" />
     <aRow :gutter="20">
       <aCol :span="10">
         <div class="bg-white px-5 py-5 rounded-lg">
@@ -73,13 +72,13 @@ const onFinishFailed = (errorInfo) => console.log("Failed:", errorInfo);
             @finishFailed="onFinishFailed"
           >
             <a-alert
-              class="mb-20 text-1xl rounded"
+              class="mb-5 text-1xl rounded"
               message="Send notifications to all users."
               type="info"
               banner
             />
 
-            <div class="mb-20">
+            <div class="mb-5">
               <a-form-item name="title">
                 <label>{{ $t("title", 2) }}</label>
                 <a-input
@@ -89,7 +88,7 @@ const onFinishFailed = (errorInfo) => console.log("Failed:", errorInfo);
               </a-form-item>
             </div>
 
-            <div class="mb-10">
+            <div class="mb-5">
               <a-form-item name="content">
                 <label>{{ $t("content", 2) }}</label>
                 <a-textarea
@@ -100,7 +99,7 @@ const onFinishFailed = (errorInfo) => console.log("Failed:", errorInfo);
               </a-form-item>
             </div>
 
-            <div class="mb-20">
+            <div class="mb-5">
               <a-form-item name="url">
                 <label>Url</label>
                 <a-input
@@ -118,10 +117,6 @@ const onFinishFailed = (errorInfo) => console.log("Failed:", errorInfo);
           </aForm>
         </div>
       </aCol>
-
-      <!-- <aCol class="" :span="14">
-        <div class="bg-white px-5 py-5 rounded-lg">Later...</div>
-      </aCol> -->
     </aRow>
   </section>
 </template>

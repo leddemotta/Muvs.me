@@ -112,7 +112,7 @@ const adminMenu = reactive([
           />
         </router-link>
       </div>
-      <nav class="nav flex flex-1 flex-col gap-y-4 pt-10">
+      <nav class="nav flex flex-1 flex-col gap-y-4">
         <ul>
           <li v-for="(item, index) in menu" :key="index">
             <router-link

@@ -1,8 +1,8 @@
 <script setup>
 import axios from "axios";
 import { reactive, ref, onMounted, defineProps } from "vue";
-import AddressService from "@/services/AddressService";
 import { message } from "ant-design-vue";
+import AddressService from "@/services/AddressService";
 
 const props = defineProps({
   address: Object,

@@ -45,9 +45,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <section class="pd-20">
+  <section class="p-8">
     <div class="wrapper">
-      <PageHeader class="mt-20 mb-10" title="Notificações" />
+      <PageHeader class="mb-5" title="Notificações" />
       <div class="notifications">
         <div v-if="notifications.list.length > 0">
           <aList item-layout="horizontal" :data-source="notifications.list">

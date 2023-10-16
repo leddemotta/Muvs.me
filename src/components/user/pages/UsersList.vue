@@ -1,6 +1,5 @@
 <script setup>
-import { ref, reactive, onMounted } from "vue";
-import { message } from "ant-design-vue";
+import { ref, onMounted } from "vue";
 import {
   EditOutlined,
   UserOutlined,
@@ -42,8 +41,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="bg-white pd-20 min-h-[686px]">
-    <PageHeader class="mt-20 mb-20" title="Users" subTitle="List">
+  <div class="bg-white p-8 min-h-[686px]">
+    <PageHeader class="mb-5" title="Users" subTitle="List">
       <template #extra>
         <a-button type="primary" @click="openCreateUserDrawer = true"
           ><UserOutlined /> Cadastrar usuário</a-button

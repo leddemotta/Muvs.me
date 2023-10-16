@@ -46,8 +46,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <section class="bg-white pd-20  min-h-[686px]">
-    <PageHeader class="mt-20 mb-20" title="Coupons" subTitle="List">
+  <section class="bg-white p-8 min-h-[686px]">
+    <PageHeader class=" mb-5" title="Coupons" subTitle="List">
       <template #extra>
         <a-button type="primary" @click="openCreateCouponDrawer = true"
           ><UserOutlined /> Create Coupon

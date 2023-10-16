@@ -19,14 +19,18 @@ const router = useRouter();
 const { vehicles, columns, listVehicles, onClickDeleteVehicle } =
   vehicleReusables;
 
+const onClickApproveVehicle = (vehicle) => {
+  console.log(vehicle);
+};
+
 onMounted(() => {
   listVehicles();
 });
 </script>
 
 <template>
-  <section class="bg-white pd-20 min-h-[686px]">
-    <PageHeader class="mt-20 mb-20" title="Veículos" subTitle="Lista">
+  <section class="bg-white p-8 min-h-[686px]">
+    <PageHeader class="mb-5" title="Veículos" subTitle="Lista">
       <template #extra>
         <a-button type="primary" @click="router.push('/vehicles/new')">
           Cadastrar
@@ -57,8 +61,7 @@ onMounted(() => {
         </template>
 
         <template v-if="column.dataIndex === 'image'">
-          <!-- <a-image :width="50" :src="text" /> -->
-          <a-avatar :src="text" :size="50"></a-avatar>
+          <a-avatar :src="text" :size="40"></a-avatar>
         </template>
 
         <template v-if="column.dataIndex === 'user'">
@@ -76,13 +79,13 @@ onMounted(() => {
 
         <template v-if="column.key === 'action'">
           <EditOutlined
-            class="mr-10"
+            class="mr-[10px]"
             @click="router.push(`/vehicles/${text._id}/edit`)"
             style="color: #1677ff"
           />
 
           <EyeOutlined
-            class="mr-10"
+            class="mr-[10px]"
             @click="router.push(`/vehicles/${text._id}/details`)"
             style="color: #1677ff"
           />
@@ -92,9 +95,9 @@ onMounted(() => {
             placement="left"
             ok-text="Sim"
             cancel-text="Não"
-            @confirm="onClickApproveVehicle(text._id)"
+            @confirm="onClickApproveVehicle(text)"
           >
-            <CheckOutlined class="mr-10" style="color: green" />
+            <CheckOutlined class="mr-[10px]" style="color: green" />
           </a-popconfirm>
 
           <a-popconfirm

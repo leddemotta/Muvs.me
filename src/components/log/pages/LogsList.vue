@@ -11,8 +11,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="bg-white pd-20  min-h-[686px]">
-    <PageHeader class="mt-20 mb-20" title="Logs" subTitle="List" />
+  <div class="bg-white p-8  min-h-[686px]">
+    <PageHeader class=" mb-5" title="Logs" subTitle="List" />
 
     <a-table
       :pagination="false"

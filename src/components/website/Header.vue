@@ -1,7 +1,13 @@
+<script setup>
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+</script>
+
 <template>
   <div>
-    <header class="website-header">
-      <a-row type="flex" justify="space-between">
+    <header>
+      <a-row type="flex" justify="space-between" align="middle">
         <a-col>
           <RouterLink to="/">
             <img
@@ -9,19 +15,25 @@
               alt="muvsme"
               src="@/assets/images/logo.png"
               width="160"
-          /></RouterLink>
+            />
+          </RouterLink>
         </a-col>
         <a-col>
-          <a-button class="bolder" type="primary" size="large" @click="login()">
+          <a-button
+            class="bolder"
+            type="primary"
+            size="large"
+            @click="router.push(`/login`)"
+          >
             Login
           </a-button>
 
           <a-button
-            class="ml-10 bolder"
+            class="ml-5 bolder"
             type="primary"
             size="large"
             ghost
-            @click="register()"
+            @click="router.push(`/choose-registration`)"
           >
             Cadastre-se
           </a-button>
@@ -30,24 +42,3 @@
     </header>
   </div>
 </template>
-
-<script>
-export default {
-  methods: {
-    login() {
-      this.$router.push(`/login`);
-    },
-    register() {
-      this.$router.push(`/choose-registration`);
-    },
-  },
-};
-</script>
-
-<style lang="sass">
-.website-header
-  padding: 30px !important
-  border-bottom: 1px solid #eee !important
-  background: #FFF
-  position: relative !important
-</style>

@@ -3,10 +3,11 @@ import { onMounted, reactive, ref } from "vue";
 import { useCurrencyInput } from "vue-currency-input";
 import { useUserStore } from "@/store/userStore";
 import { useRouter } from "vue-router";
+import { message } from "ant-design-vue";
+
 import addressReusables from "../../address/reusables/addressReusables";
 import vehicleReusables from "../reusables/vehicleReusables";
 import reusableThings from "@/components/general/reusables/reusablesThings";
-import { message } from "ant-design-vue";
 
 const { user } = useUserStore();
 const { addresses, listAddresses } = addressReusables;
@@ -44,55 +45,52 @@ onMounted(() => {
   if (action === "edit") {
     vehicleDetails(router.currentRoute._value.params.id).then((data) => {
       console.log(data);
-      formState.type = data.type;
-      formState.brand = data.brand;
-      formState.addressId = data.addressId;
-      formState.name = data.name;
-      formState.slug = data.slug;
-      formState.description = data.description;
-      formState.value = data.value;
-      formState.color = data.color;
-      formState.isElectric = data.isElectric;
-
-      formState.maxWeight = data.maxWeight;
-      formState.recommendation = data.recommendation;
-      formState.currency = data.currency;
-      formState.status = data.status;
-      //values.image = data.type; //parseFloat(values.value.replace(",", "."));
-
-      imageUrl.value = data.image;
+      formState.type = data.vehicle.type;
+      formState.brand = data.vehicle.brand;
+      formState.addressId = data.vehicle.addressId;
+      formState.name = data.vehicle.name;
+      formState.slug = data.vehicle.slug;
+      formState.description = data.vehicle.description;
+      formState.value = data.vehicle.value;
+      formState.color = data.vehicle.color;
+      formState.isElectric = data.vehicle.isElectric;
+      formState.maxWeight = data.vehicle.maxWeight;
+      formState.recommendation = data.vehicle.recommendation;
+      formState.currency = data.vehicle.currency;
+      formState.status = data.vehicle.status;
+      imageUrl.value = data.vehicle.image;
     });
   } else {
-    // formState.type = "bicycle";
-    // formState.brand = "caloy";
-    // formState.name = "Bicicleta do Led";
-    // formState.slug = "bicicleta-do-led";
-    // formState.description =
-    //   "Lorem ipsum dolor sit amet, consectetur adipiscing elit";
-    // formState.value = "10,55";
-    // formState.color = "green";
-    // formState.maxWeight = "< 90kg";
-    // formState.recommendation = "+18";
+    formState.type = "bicycle";
+    formState.brand = "caloy";
+    formState.name = "Bicicleta do Led";
+    formState.slug = "bicicleta-do-led";
+    formState.description =
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit";
+    formState.value = "10,55";
+    formState.color = "green";
+    formState.maxWeight = "< 90kg";
+    formState.recommendation = "+18";
   }
 });
 
 const onFinish = (values) => {
   console.log(values);
   values.userId = user._id;
-  // values.value = parseFloat(values.value.replace(",", "."));
   values.currency = "brl";
-
   values.image = imageUrl.value;
-  if (action === "edit") {
-    //
-    console.log(values, theVehicle.value._id);
 
+  if (action === "edit") {
+    console.log(values, theVehicle.value._id);
     updateVehicle(theVehicle.value._id, values);
   } else {
     values.status = "active";
     values.image = imageUrl.value;
     values.value = parseFloat(values.value.replace(",", "."));
-    createVehicle(values);
+    createVehicle(values).then((data) => {
+      message.success("Veículo cadastrado com sucesso!");
+      router.push(`/vehicles/${data._id}/details`);
+    });
   }
 };
 
@@ -342,7 +340,7 @@ const beforeUpload = (file) => {
 
                 <a-radio-group v-model:value="formState.addressId">
                   <div
-                    class="mt-10"
+                    class="mt-[10px]"
                     v-for="(
                       { _id, street, neighborhood, city }, index
                     ) in addresses.list"
